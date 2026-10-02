@@ -1,0 +1,73 @@
+# ───────────────────────────── Secrets ─────────────────────────────
+# Never commit credentials (AGENTS.md rule 4). .env.example is the only env file tracked.
+.env
+.env.*
+!.env.example
+*.p8
+*.pem
+*.key
+*.pfx
+rsa_key*
+credentials.json
+secrets.toml
+.streamlit/secrets.toml
+.snowflake/
+.npmrc
+
+# ─────────────────────────── Node / Next.js ────────────────────────
+node_modules/
+.pnpm-store/
+.next/
+out/
+build/
+dist/
+.turbo/
+swc/
+coverage/
+.vitest/
+*.tsbuildinfo
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ────────────────────────── Python / Snowpark ──────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ───────────────────────────── Snowflake ───────────────────────────
+# Local CLI state and any downloaded/exported account artefacts
+.snowsql/
+snowflake/logs/
+*.sql.gz
+
+# ───────────────────────── Tests / artefacts ───────────────────────
+playwright-report/
+test-results/
+blob-report/
+data-cache/
+*.snapshot.json
+
+# ─────────────────────────── Logs / runtime ────────────────────────
+*.log
+logs/
+tmp/
+.tmp/
+.DS_Store
+desktop.ini
+Thumbs.db
+
+# ─────────────────────── Editor / local tooling ────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.freebuff/
