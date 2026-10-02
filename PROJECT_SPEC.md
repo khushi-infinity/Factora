@@ -95,6 +95,12 @@ Work Order. Every page keeps a breadcrumb back to that spine so the demo never d
 **Out of scope as pages:** auth/admin screens (demo runs as a read-mostly single-role app), mobile layouts,
 multi-tenant onboarding.
 
+**Visual target:** the ten screen mockups and the binding design language live in
+[`mockup/`](./mockup/README.md) (extracted from the build playbook, §2 UI/UX Blueprint). The route shapes
+in the table above are this spec's naming; the playbook's mockups assume `/twin`, `/predictive-maintenance`,
+`/ai-assistant`, `/spare-parts`, `/oee` and `/planner` instead — **reconcile the two before routing is
+written** (§13 Q7).
+
 ---
 
 ## 3. Architecture
@@ -449,3 +455,9 @@ Rule: **one milestone at a time**, and `PROGRESS.md` is updated at the end of ev
 5. Public repo hygiene: confirm the demo dataset may remain in the repo if small (< 5 MB), else seed on demand.
 6. How much 3D earns its keep: default is one asset view on Machine 360, with a plant-floor diorama on the
    Factory Twin as stretch — decide after M7 based on remaining time and demo impact.
+7. **Route and naming alignment with the build playbook.** The playbook and its mockups use `/`, `/twin`,
+   `/machines`, `/machines/:id`, `/predictive-maintenance`, `/ai-assistant`, `/work-orders`, `/spare-parts`,
+   `/oee`, `/planner`; database `FACTORA` with schemas `RAW` / `CORE` / `AI` / `DOCS`; warehouse
+   `FACTORA_WH` (XSMALL, auto-suspend 60 s). This spec currently uses different page names (§2) and
+   `FACTORA_{ENV}` with `RAW` / `CURATED` / `ANALYTICS` (§7). Pick one set before routing or DDL is written —
+   see `mockup/README.md` → *Deliberate deltas*.

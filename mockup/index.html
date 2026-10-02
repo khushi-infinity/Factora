@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Factora — UI/UX design target (mockups)</title>
+    <style>
+      :root {
+        --navy: #0f172a;
+        --ink: #1e293b;
+        --muted: #64748b;
+        --line: #e2e8f0;
+        --accent: #2563eb;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: #f1f5f9;
+        color: var(--ink);
+        font: 14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      }
+      header {
+        background: var(--navy);
+        color: #f8fafc;
+        padding: 28px 32px;
+      }
+      header h1 { margin: 0 0 4px; font-size: 20px; letter-spacing: -0.01em; }
+      header p { margin: 0; color: #93a3b8; font-size: 13px; max-width: 900px; }
+      .wrap { padding: 24px 32px 48px; }
+      .rules {
+        background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--accent);
+        border-radius: 8px; padding: 14px 16px; margin-bottom: 24px; max-width: 1100px;
+      }
+      .rules h2 { margin: 0 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+      .rules ul { margin: 0; padding-left: 18px; }
+      .rules li { margin: 2px 0; }
+      .grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(430px, 1fr)); }
+      figure {
+        margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 10px;
+        overflow: hidden; display: flex; flex-direction: column;
+      }
+      figure img { display: block; width: 100%; height: auto; border-bottom: 1px solid var(--line); background: #fff; }
+      figcaption { padding: 12px 14px; }
+      .num { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+      .name { font-weight: 600; margin: 2px 0 6px; }
+      .route { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--accent); }
+      .must { margin: 6px 0 0; color: #334155; font-size: 13px; }
+      footer { padding: 0 32px 40px; color: var(--muted); font-size: 12px; max-width: 1100px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Factora — UI/UX design target</h1>
+      <p>
+        The ten screens from the Beginner Build Playbook (§2 UI/UX Blueprint, pages 4–10), extracted at original
+        resolution into this folder. Build the UI to match these, not to a reinterpretation of them.
+      </p>
+    </header>
+
+    <div class="wrap">
+      <section class="rules">
+        <h2>Design language (from the playbook)</h2>
+        <ul>
+          <li><strong>Shell:</strong> dark navy sidebar, Factora logo/wordmark, plant selector, live-data indicator, search field, notifications, profile area.</li>
+          <li><strong>Panels:</strong> clean enterprise dashboard — white/light content panels, blue accent, no random gradients, no excessive animation.</li>
+          <li><strong>Machine states:</strong> healthy <em>green</em>, warning <em>amber</em>, critical <em>red</em>, maintenance <em>blue/gray</em>, offline <em>gray</em> — used consistently on every page and in the 3D twin.</li>
+          <li><strong>Honesty:</strong> simulated telemetry is labelled as simulated; numbers come from the API, never invented in a component.</li>
+        </ul>
+      </section>
+
+      <div class="grid">
+        <figure>
+          <img src="./01-command-center.jpg" alt="Command Center mockup" />
+          <figcaption>
+            <div class="num">Mockup 1 · Playbook page 4</div>
+            <div class="name">Command Center</div>
+            <div class="route">route /</div>
+            <p class="must">Top KPIs, OEE trend, machine health distribution, AI summary, critical alerts, production output, upcoming maintenance.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./02-factory-digital-twin.jpg" alt="Factory Digital Twin mockup" />
+          <figcaption>
+            <div class="num">Mockup 2 · Playbook page 4</div>
+            <div class="name">Factory Digital Twin</div>
+            <div class="route">route /twin</div>
+            <p class="must">The visual centrepiece. Machines and production lines change state: healthy, warning, critical, maintenance/offline.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./03-machines-explorer.jpg" alt="Machines Explorer mockup" />
+          <figcaption>
+            <div class="num">Mockup 3 · Playbook page 5</div>
+            <div class="name">Machines Explorer</div>
+            <div class="route">route /machines</div>
+            <p class="must">Sortable list of machines with health score, failure probability, RUL, vibration, temperature and actions.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./04-machine-detail.jpg" alt="Machine Detail mockup" />
+          <figcaption>
+            <div class="num">Mockup 4 · Playbook page 6</div>
+            <div class="name">Machine Detail</div>
+            <div class="route">route /machines/:id</div>
+            <p class="must">Live telemetry, prediction, root-cause evidence, maintenance history, parts and Create Work Order action.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./05-predictive-maintenance.jpg" alt="Predictive Maintenance mockup" />
+          <figcaption>
+            <div class="num">Mockup 5 · Playbook page 7</div>
+            <div class="name">Predictive Maintenance</div>
+            <div class="route">route /predictive-maintenance</div>
+            <p class="must">Rank machines by failure risk/RUL and show recommended preventive actions.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./06-ai-maintenance-agent.jpg" alt="AI Maintenance Agent mockup" />
+          <figcaption>
+            <div class="num">Mockup 6 · Playbook page 8</div>
+            <div class="name">AI Maintenance Agent</div>
+            <div class="route">route /ai-assistant</div>
+            <p class="must">Natural-language investigation with citations/evidence from telemetry, maintenance history and knowledge base.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./07-work-orders.jpg" alt="Work Orders mockup" />
+          <figcaption>
+            <div class="num">Mockup 7 · Playbook page 8</div>
+            <div class="name">Work Orders</div>
+            <div class="route">route /work-orders</div>
+            <p class="must">Create, assign, schedule and track maintenance actions generated by Factora.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./08-spare-parts.jpg" alt="Spare Parts mockup" />
+          <figcaption>
+            <div class="num">Mockup 8 · Playbook page 9</div>
+            <div class="name">Spare Parts</div>
+            <div class="route">route /spare-parts</div>
+            <p class="must">Stock, reorder level, supplier, lead time and compatible machines.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./09-oee-production-analytics.jpg" alt="OEE and Production Analytics mockup" />
+          <figcaption>
+            <div class="num">Mockup 9 · Playbook page 9</div>
+            <div class="name">OEE &amp; Production Analytics</div>
+            <div class="route">route /oee</div>
+            <p class="must">Availability, performance, quality, OEE, output vs target and downtime causes.</p>
+          </figcaption>
+        </figure>
+
+        <figure>
+          <img src="./10-maintenance-planner-reports.jpg" alt="Maintenance Planner and Reports mockup" />
+          <figcaption>
+            <div class="num">Mockup 10 · Playbook page 10</div>
+            <div class="name">Maintenance Planner &amp; Reports</div>
+            <div class="route">route /planner</div>
+            <p class="must">Calendar view, recent alerts, maintenance history and AI-generated report.</p>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <footer>
+      Source: <code>factora_build_playbook.pdf</code> — Beginner Build Playbook, Snowflake CoCo CLI Hackathon 2026
+      (GCC Edition), §2 UI/UX Blueprint. Images extracted losslessly (original JPEG bytes) on 2026-10-02.
+      Full playbook text: <code>playbook-source-text.md</code>.
+    </footer>
+  </body>
+</html>

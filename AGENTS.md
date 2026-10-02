@@ -72,6 +72,8 @@ PROGRESS.md       live state: goal, completed, in progress, next 3, blockers, te
 README.md         human-facing overview + quick start + exact commands
 .env.example      every env var, placeholders only (never real values)
 .gitignore        secret and artefact hygiene
+mockup/           the UI/UX design target: the ten screen mockups + index.html + the playbook text
+                  (build the UI to match these; deltas and design language in mockup/README.md)
 
 frontend/         (M1+) React + Vite + TS SPA: pages, components (`src/lib` = typed API client)
 backend/          (M1+) FastAPI BFF: `app/api/` routes, `app/db/` (the ONLY place the Snowflake
@@ -92,6 +94,9 @@ committed.
 - **Keep the demo cold-startable**: any command chain that only works on your machine is a bug.
 - **Label simulation honestly**: synthetic telemetry, cached AI output and replayed data must be visibly
   marked in the UI and in the docs.
+- **Match the mockups**: `mockup/` is the visual target and its design language is binding — dark navy
+  sidebar, light content panels, blue accent, and one meaning per state colour (green healthy, amber
+  warning, red critical, blue/gray maintenance, gray offline). Simulated data must be labelled as such.
 - **Small, reviewable changes**: one milestone-scoped commit with a message that names the milestone
   (e.g. `M3: curated health features for CNC-03`).
 - **Stop and record a blocker** rather than guessing around a missing credential, quota or dataset —
