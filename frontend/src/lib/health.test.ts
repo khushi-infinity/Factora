@@ -13,7 +13,7 @@ function dependency(overrides: Partial<DependencyStatus> = {}): DependencyStatus
   return {
     name: 'snowflake',
     status: 'ok',
-    detail: 'connected to FACTORA_DEV.ANALYTICS',
+    detail: 'connected to FACTORA.CORE',
     latency_ms: 42,
     ...overrides,
   }

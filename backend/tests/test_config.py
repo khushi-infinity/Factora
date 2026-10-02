@@ -12,8 +12,9 @@ def test_defaults_are_safe_and_offline() -> None:
     settings = Settings()
 
     assert settings.snowflake_configured is False
-    assert settings.snowflake_database == "FACTORA_DEV"
-    assert settings.snowflake_schema == "ANALYTICS"
+    # Build-playbook naming: database FACTORA, schemas RAW / CORE / AI / DOCS.
+    assert settings.snowflake_database == "FACTORA"
+    assert settings.snowflake_schema == "CORE"
     assert settings.demo_primary_machine == "CNC-03"
 
 

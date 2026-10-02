@@ -51,8 +51,9 @@ class Settings(BaseSettings):
     snowflake_user: str | None = None
     snowflake_role: str | None = None
     snowflake_warehouse: str | None = None
-    snowflake_database: str = "FACTORA_DEV"
-    snowflake_schema: str = "ANALYTICS"
+    # Names follow the build playbook: database FACTORA with RAW / CORE / AI / DOCS schemas.
+    snowflake_database: str = "FACTORA"
+    snowflake_schema: str = "CORE"
     snowflake_authenticator: str = "SNOWFLAKE_JWT"
     snowflake_private_key_path: str | None = None
     snowflake_private_key_passphrase: str | None = None

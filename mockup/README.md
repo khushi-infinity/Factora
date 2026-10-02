@@ -57,23 +57,25 @@ Sampled from the extracted images, the whole set is consistent with the design l
 | Machine Detail | Carries red state samples (critical machine) plus dense panels — telemetry + prediction + evidence |
 | Agent panel | `06-ai-maintenance-agent` is the lightest, text-heavy screen (72 % white) — conversation + evidence cards |
 
-## Deliberate deltas from the current build (decide these before the UI milestone)
+## Alignment record (settled 2026-10-02)
 
-1. **Shell theme.** The M1 shell is a dark navy *page*. The mockups specify a dark navy **sidebar** with
-   **light content panels** — the shell gets re-skinned at the design-system milestone, not before.
-2. **Routes.** `PROJECT_SPEC.md` §2 currently names pages/routes in a different shape (Factory Twin at `/`,
-   Machine 360 at `/machines/[machineId]`, Risk Board, Parts, Impact, Work Orders, `/demo`). The playbook's
-   ten routes above are what the mockups and prompts assume. These must be reconciled in one place before
-   routing is written, or every page will be built against a different map.
-3. **Padding for the demo spine.** The playbook's run-of-show is 90 seconds
-   (Command Center → Twin → Machine Detail → Agent → part + work order); `PROJECT_SPEC.md` §9 currently
-   describes a 5-minute, 6-beat version. Same story, different timing.
-4. **Snowflake naming.** The playbook uses database `FACTORA` with schemas `RAW` / `CORE` / `AI` / `DOCS` and
-   warehouse `FACTORA_WH` (XSMALL, auto-suspend 60 s); `PROJECT_SPEC.md` §7 currently says
-   `FACTORA_{ENV}` with `RAW` / `CURATED` / `ANALYTICS`. Pick one before any DDL exists.
-5. **Cost-safety SQL is a human step.** The playbook's warehouse, resource monitor and CoCo credit-limit
+The playbook was accepted as the plan of record over the earlier spec draft, so these are decided — do not
+re-open them mid-build:
+
+1. **Routes.** `PROJECT_SPEC.md` §2 now uses the playbook's ten routes exactly as listed above. The earlier
+   shape (Factory Twin at `/`, Machine 360, Risk Board, Parts, `/demo`, …) is **retired**; the shell's route
+   inventory and every page's plan follow this table and its mockup.
+2. **Snowflake naming.** Database **`FACTORA`** with schemas **`RAW` / `CORE` / `AI` / `DOCS`**, warehouse
+   **`FACTORA_WH`** (XSMALL, auto-suspend 60 s). The backend defaults and `.env.example` were renamed to match
+   (`SNOWFLAKE_DATABASE=FACTORA`, `SNOWFLAKE_SCHEMA=CORE`).
+3. **Demo timing.** The playbook's **90-second** run-of-show replaced the 5-minute six-beat flow
+   (`PROJECT_SPEC.md` §9). Reset + Start-scenario buttons, deterministic, twice in a row.
+4. **Shell theme — still a deliberate later change.** The F1 shell is dark navy throughout, while the mockups
+   specify a dark navy **sidebar** with **light content panels**. That re-skin belongs to the design-system
+   step (F5); components are not restyled piecemeal before then.
+5. **Cost-safety SQL stays a human step.** The playbook's warehouse, resource-monitor and CoCo credit-limit
    statements are run by the user in Snowsight at setup. `AGENTS.md` rule 7 keeps agents read-only on
-   cost-control settings, so no agent will execute them.
+   cost-control settings, so no agent executes them.
 
 ## Regenerating these files
 

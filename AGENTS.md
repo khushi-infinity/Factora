@@ -12,8 +12,9 @@ trade working software for speed).
    Read the spec for *what* and *why*; read progress for *where we are*. If either file contradicts the
    code, reconcile them in the same change.
 2. **Work on one milestone at a time.**
-   Milestones are defined in `PROJECT_SPEC.md` §11 and tracked in `PROGRESS.md`. Do not start milestone
-   N+1 while N is unfinished, and do not silently expand scope — stretch work waits until MVP is green.
+   The build order is the playbook's prompt sequence (F0–F11 / C1–C7), recorded in `PROJECT_SPEC.md` §11 and
+   tracked in `PROGRESS.md`. Do not run the next prompt until the current checkpoint passes, and do not
+   silently expand scope — stretch work waits until the end-to-end demo runs twice cleanly.
 3. **Never mark a task complete without running a relevant test/build.**
    "Relevant" is defined by the *Verification Protocol* below. If no automated test exists for the
    change, add one or run the documented manual check and record the exact command + observed result.
@@ -51,6 +52,8 @@ trade working software for speed).
 |-------------|--------------------------------|
 | Docs only (`*.md`, `.env.example`, `.gitignore`) | Presence/completeness check for required sections + secret scan (`grep`) |
 | SQL / Dynamic Table / Snowpark | Script runs twice without error (idempotency) + row-count/sanity `SELECT` output recorded |
+| Dataset / generator | Generator re-runs deterministically (same seed → same output) + every CSV non-empty and internally consistent + the CNC-03 scenario present |
+| ML / model change | `ml/train.py` reproduces the metrics quoted in `ml/MODEL_CARD.md`; inference smoke test passes; the CNC-03 demo adapter is documented and kept separate from the real evaluation |
 | Frontend code (TS/React) | `cd frontend && npm run typecheck && npm run lint && npm test` |
 | Frontend build-affecting change | `cd frontend && npm run build` — the production bundle must succeed |
 | Backend code (Python) | `cd backend && .venv/bin/pytest -q` **and** `.venv/bin/ruff check .`; any new route needs a TestClient test |
@@ -78,8 +81,11 @@ mockup/           the UI/UX design target: the ten screen mockups + index.html +
 frontend/         (M1+) React + Vite + TS SPA: pages, components (`src/lib` = typed API client)
 backend/          (M1+) FastAPI BFF: `app/api/` routes, `app/db/` (the ONLY place the Snowflake
                   connector is imported), `app/ml/` (pandas/scikit-learn/joblib, M3+), `tests/` pytest
-snowflake/        (M2+) SQL + Snowpark: schemas, DDL, seeds, dynamic tables, prompts
-tests/e2e/        (M6+) Playwright demo-flow tests
+ml/               (F3+) train.py · predict.py · artifacts/ (build output, never committed) · MODEL_CARD.md
+data/             (F2+) raw/ (AI4I 2020) · generated/ (deterministic synthetic CSVs) · README.md
+snowflake/        (C1+) sql/ (ordered, re-runnable) · semantic/ · agent/
+docs/             (F10+) demo-script.md · SUBMISSION_CHECKLIST.md · demo assets
+scripts/          (F2+) download_ai4i.py · generate_factory_data.py
 ```
 
 Files not listed here (logs, caches, `.env`, key material, `node_modules/`, local scratch) must never be
@@ -98,6 +104,6 @@ committed.
   sidebar, light content panels, blue accent, and one meaning per state colour (green healthy, amber
   warning, red critical, blue/gray maintenance, gray offline). Simulated data must be labelled as such.
 - **Small, reviewable changes**: one milestone-scoped commit with a message that names the milestone
-  (e.g. `M3: curated health features for CNC-03`).
+  (e.g. `F2: deterministic factory dataset with the CNC-03 degradation scenario`).
 - **Stop and record a blocker** rather than guessing around a missing credential, quota or dataset —
   write it in `PROGRESS.md` → *Blockers* and continue with something unblocked.
