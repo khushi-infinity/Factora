@@ -48,6 +48,12 @@ env/
 snowflake/logs/
 *.sql.gz
 
+# ─────────────────────────── ML artefacts ──────────────────────────
+# joblib/scikit-learn build output: reproducible from scripts, never committed.
+backend/artifacts/
+*.joblib
+*.pkl
+
 # ───────────────────────── Tests / artefacts ───────────────────────
 playwright-report/
 test-results/

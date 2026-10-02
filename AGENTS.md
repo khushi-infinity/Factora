@@ -51,7 +51,9 @@ trade working software for speed).
 |-------------|--------------------------------|
 | Docs only (`*.md`, `.env.example`, `.gitignore`) | Presence/completeness check for required sections + secret scan (`grep`) |
 | SQL / Dynamic Table / Snowpark | Script runs twice without error (idempotency) + row-count/sanity `SELECT` output recorded |
-| App code (TS/React) | `npm run typecheck` **and** `npm run lint` **and** `npm test` |
+| Frontend code (TS/React) | `cd frontend && npm run typecheck && npm run lint && npm test` |
+| Frontend build-affecting change | `cd frontend && npm run build` — the production bundle must succeed |
+| Backend code (Python) | `cd backend && .venv/bin/pytest -q` **and** `.venv/bin/ruff check .`; any new route needs a TestClient test |
 | Demo flow / UI wiring | `npm run test:e2e` on the affected beats; attach the run result |
 | Prompt / AI output change | Regenerate once, confirm citations resolve, persist the row, replay offline |
 | Dependency added | License verified (rule 5), `npm ci && npm run build` still succeeds |
@@ -71,9 +73,11 @@ README.md         human-facing overview + quick start + exact commands
 .env.example      every env var, placeholders only (never real values)
 .gitignore        secret and artefact hygiene
 
-snowflake/        (M1+) SQL + Snowpark: schemas, DDL, seeds, dynamic tables, prompts
-src/              (M5+) Next.js app: pages, server routes, single data-access module
-tests/            (M5+) Vitest unit tests; tests/e2e Playwright demo-flow tests
+frontend/         (M1+) React + Vite + TS SPA: pages, components (`src/lib` = typed API client)
+backend/          (M1+) FastAPI BFF: `app/api/` routes, `app/db/` (the ONLY place the Snowflake
+                  connector is imported), `app/ml/` (pandas/scikit-learn/joblib, M3+), `tests/` pytest
+snowflake/        (M2+) SQL + Snowpark: schemas, DDL, seeds, dynamic tables, prompts
+tests/e2e/        (M6+) Playwright demo-flow tests
 ```
 
 Files not listed here (logs, caches, `.env`, key material, `node_modules/`, local scratch) must never be
@@ -89,6 +93,6 @@ committed.
 - **Label simulation honestly**: synthetic telemetry, cached AI output and replayed data must be visibly
   marked in the UI and in the docs.
 - **Small, reviewable changes**: one milestone-scoped commit with a message that names the milestone
-  (e.g. `M2: curated health features for CNC-03`).
+  (e.g. `M3: curated health features for CNC-03`).
 - **Stop and record a blocker** rather than guessing around a missing credential, quota or dataset —
   write it in `PROGRESS.md` → *Blockers* and continue with something unblocked.

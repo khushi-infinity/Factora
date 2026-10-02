@@ -1,0 +1,21 @@
+# Factora backend — runtime dependencies (all free/open-source; PROJECT_SPEC.md §4, AGENTS rule 5)
+#
+# Install into the project-local virtualenv:
+#   cd backend && python3.11 -m venv .venv && .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+#
+# No paid API client, no keyed SaaS SDK is permitted in this file (AGENTS rule 6).
+
+# --- API (BFF) -------------------------------------------------------------
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0
+pydantic>=2.7,<3.0
+pydantic-settings>=2.3,<3.0
+
+# --- Snowflake (only backend/app/db/ may import this) ----------------------
+snowflake-connector-python>=3.10,<5.0
+
+# --- Data / ML for feature work and models (used from M3+, PROJECT_SPEC.md §4) ---
+pandas>=2.2,<4.0
+numpy>=1.26,<3.0
+scikit-learn>=1.4,<2.0
+joblib>=1.4,<2.0

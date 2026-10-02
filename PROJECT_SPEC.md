@@ -2,7 +2,7 @@
 
 **Event:** Snowflake CoCo CLI Hackathon 2026 — GCC Edition
 **Repository:** https://github.com/khushi-infinity/Factora
-**Doc status:** v0.1 baseline — scope locked enough to build against; changes require a `PROGRESS.md` note
+**Doc status:** v0.2 — M1 revised the local stack to a **React + Vite SPA with a FastAPI backend** (was Next.js), so the Python ML toolchain sits behind one typed API boundary; product scope and demo flow unchanged
 **Last updated:** 2026-10-02
 **Owner:** Khushi Sarawagi
 
@@ -107,12 +107,14 @@ multi-tenant onboarding.
                     └──────────────────────────────────────────────────────────────────────────────────────┘
                                                               │ generates / runs
                                                               ▼
-┌─────────────────────────────── LOCAL APP (Next.js on localhost) ───────────────────────────────┐
-│  UI: Factory Twin · Machine 360 · Risk Board · Diagnosis · Parts · Work Orders · Impact          │
-│  BFF: server routes (Node) → one thin data-access layer (repository module)                      │
-│  No business truth lives here: every score/prediction/explanation is computed or fetched from SF │
-└─────────────────────────────────────────────────────────────────────────────────────────────────┘
-                                                              │ snowflake-sdk (key-pair auth, TLS)
+┌──────────────────────────── LOCAL APP (two localhost processes) ────────────────────────────────┐
+│  UI  (frontend/, :5173)  React + Vite SPA → Factory Twin · Machine 360 · Risk Board · Diagnosis  │
+│                          Parts · Work Orders · Impact · 3D asset view (react-three-fiber)        │
+│  BFF (backend/,  :8000)  FastAPI → typed payloads, OpenAPI docs, one thin data-access layer      │
+│  No business truth lives here: every score/prediction/explanation is computed in or fetched      │
+│  from Snowflake.                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+                                                              │ snowflake-connector-python (key-pair auth, TLS)
                                                               ▼
 ┌────────────────────────────────────── SNOWFLAKE (system of record + intelligence) ──────────────┐
 │  RAW      → landed telemetry, work orders, parts, manuals                                        │
@@ -127,9 +129,9 @@ multi-tenant onboarding.
 
 | Layer | Responsibility | Deliberate constraint |
 |-------|----------------|-----------------------|
-| Presentation (Next.js) | Renders twin state, trends, evidence, forms | No scoring, no thresholds, no prompt text hardcoded in components |
-| BFF (server routes) | Auth to Snowflake, shape payloads, cache, degrade gracefully | Never invent data; if Snowflake is down, return an explicit `stale` flag |
-| Data access | Single module that owns every SQL call | UI code cannot import the driver directly |
+| Presentation (React + Vite) | Renders twin state, trends, evidence, forms, 3D asset view | No scoring, no thresholds, no prompt text hardcoded in components |
+| BFF (FastAPI) | Auth to Snowflake, shape payloads, cache, degrade gracefully | Never invent data; if Snowflake is down, return an explicit `stale` flag |
+| Data access | Single module (`backend/app/db/`) that owns every SQL call | UI code cannot import the connector directly |
 | Snowflake curated | All cleansing, feature and score computation | Idempotent, re-runnable, versioned in `/snowflake` |
 | Snowflake AI | Retrieval + generation with citations | Prompts stored as files, outputs persisted with model name + inputs hash |
 
@@ -147,6 +149,27 @@ multi-tenant onboarding.
 dedicated role → app reads with a read-only role. **No manual object creation in the Snowsight UI** —
 everything reproducible from the repo.
 
+### 3.5 Repository layout
+
+```
+Factora/
+├── frontend/           React 19 + Vite + TS SPA (:5173) — pages, components, typed API client
+│   └── src/lib/        API client + pure helpers (unit-tested with Vitest)
+├── backend/            FastAPI BFF (:8000)
+│   ├── app/api/        route modules (health now; twin, predictions, parts, work orders later)
+│   ├── app/db/         Snowflake access — the only place the connector is imported
+│   ├── app/ml/         pandas / scikit-learn / joblib scoring + model artefacts (M3+)
+│   └── tests/          pytest API + unit tests
+├── snowflake/          SQL + Snowpark: schemas, DDL, seeds, dynamic tables, prompts (M2+)
+├── tests/e2e/          Playwright demo-flow tests (M6+)
+└── PROJECT_SPEC.md · AGENTS.md · PROGRESS.md · README.md · .env.example · .gitignore
+```
+
+**Boundary rules:** the SPA never talks to Snowflake directly; FastAPI never renders UI; only
+`backend/app/db/` imports the Snowflake connector; only scripts in `snowflake/` create or alter Snowflake
+objects; anything that computes a health score, prediction or cost lives in Snowflake (or, for local ML
+experiments, in `backend/app/ml/`) — never in a React component.
+
 ---
 
 ## 4. Tech Stack
@@ -161,19 +184,24 @@ everything reproducible from the repo.
 | Statistical scoring | SQL window functions + `REGR_SLOPE`/z-scores, optionally `SNOWFLAKE.ML.FORECAST` | supplied | Fully explainable by construction |
 | Retrieval | **Cortex Search** | supplied | Grounded, citable retrieval over manuals and history |
 | Generation | **Cortex COMPLETE** (`mistral-large2` default, configurable) | supplied | Runs inside the account; no external LLM key |
-| App framework | **Next.js 15 (App Router) + TypeScript** | MIT | File-routing + server routes for the BFF in one process |
-| Styling | **Tailwind CSS** | MIT | Fast, consistent industrial-console look, dark-mode friendly |
+| Frontend | **React 19 + Vite + TypeScript** | MIT | SPA with fast HMR; one explicit HTTP boundary to the Python API |
+| Frontend styling | **Tailwind CSS** | MIT | Fast, consistent industrial-console look, dark-mode friendly |
 | Charts | **Recharts** | MIT | Sensor trend + degradation lines, zero license friction |
-| Validation | **Zod** | MIT | Validate env + payload shapes at the boundary |
-| Snowflake driver (Node) | `snowflake-sdk` | Apache-2.0 | Official OSS connector; key-pair auth |
-| Unit tests | **Vitest** | MIT | Fast, TS-native |
+| 3D asset view | **@react-three/fiber + @react-three/drei** (three.js) | MIT | Spatial plant/asset view without a paid viewer |
+| Backend (BFF) | **FastAPI + Uvicorn** | MIT / BSD-3-Clause | Typed request layer + auto OpenAPI docs; Python ML sits beside it |
+| Validation / config | **Pydantic v2 + pydantic-settings** | MIT | Env + payload validation at the boundary |
+| Snowflake driver (Python) | `snowflake-connector-python` | Apache-2.0 | Official OSS connector; key-pair auth |
+| Data / ML | **pandas, scikit-learn, joblib** | BSD-3-Clause | Local feature work, model training, artefact loading |
+| Frontend tests | **Vitest** | MIT | Fast, TS-native unit tests |
+| Backend tests | **pytest** (+ `httpx` for the test client) | MIT / BSD-3-Clause | API smoke + unit tests |
 | E2E tests | **Playwright** | Apache-2.0 | Drives the real demo flow — the thing judges watch |
-| Python tests | `pytest` | MIT | Lint/validate Snowpark helpers |
-| Lint/format | ESLint + Prettier; `ruff` (Python) | MIT | Boring, standard |
+| Lint/format | ESLint + Prettier (TS); `ruff` (Python) | MIT | Boring, standard |
 
-**Not used (intentionally):** any paid API or keyed SaaS (AGENTS rule 6), proprietary BI/ dashboards, a
-second cloud, GraphQL federation, microservices, a separate feature-store product, external vector DB.
-Anything not in the table above needs a written justification in `PROGRESS.md` before it is added.
+**Not used (intentionally):** Next.js / SSR (the SPA + API split keeps the Python ML toolchain
+first-class and the boundary honest), any paid API or keyed SaaS (AGENTS rule 6), proprietary BI or
+dashboards, a second cloud, GraphQL federation, microservices, a separate feature-store product, an
+external vector DB. Anything not in the table above needs a written justification in `PROGRESS.md`
+before it is added.
 
 ---
 
@@ -198,10 +226,12 @@ Snowflake owns the **system of record and every piece of intelligence**:
 
 ## 6. Local App Responsibilities
 
-The app is a **thin, honest client**:
+The app is a **thin, honest client**, split across two local processes: a React SPA (`frontend/`) that
+renders, and a FastAPI BFF (`backend/`) that authenticates, queries and shapes payloads.
 
-1. **Render the twin** — plant → line → machine → component, with health state and freshness timestamp.
-2. **Visualise evidence** — sensor trends, baseline band, anomaly window, degradation slope; never a bare number.
+1. **Render the twin** — plant → line → machine → component, with health state and freshness timestamp;
+   optional 3D asset view for spatial context.
+2. **Visualise evidence** — sensor trends (Recharts), baseline band, anomaly window, degradation slope; never a bare number.
 3. **Explain** — present the AI narrative *with* its citations, model name and generated-at time.
 4. **Show readiness** — parts on hand vs. required, location, lead time, substitutes, blockers.
 5. **Quantify impact** — failure-now vs. planned-window comparison with visible assumptions.
@@ -384,14 +414,15 @@ any paid service.
 
 | ID | Milestone | Exit criteria |
 |----|-----------|---------------|
-| **M0** | Bootstrap (this commit) | Six root docs exist, consistent; repo initialised; verification command passes |
-| **M1** | Snowflake foundation | DDL + seed scripts re-runnable from repo; RAW tables populated; `SELECT`s return sane data |
-| **M2** | Curated twin | Dynamic Tables + Snowpark features live; `MACHINE_HEALTH` shows CNC-03 degrading |
-| **M3** | Prediction + explanation | `PREDICTION` + `AI_EXPLANATION` rows for CNC-03 with citations; offline replay works |
-| **M4** | Parts + impact | `PART_READINESS` and `IMPACT_ASSESSMENT` correct for the demo case, visible in UI |
-| **M5** | App + action | Factory Twin → Work Order flow clickable; work order persists; Playwright flow green |
-| **M6** | Demo hardening | Fallback/cache, run-of-show, timings, `/demo` reset; full dry run under 5 min |
-| **M7+** | Stretch | Only after M6 is green (see §8) |
+| **M0** | Bootstrap (docs) | Six root docs exist, consistent; repo initialised; verification command passes |
+| **M1** | Application scaffold | `frontend/` builds (React+Vite+TS+Tailwind, Recharts + react-three-fiber wired) and `backend/` serves `/api/health` with pytest green; run commands documented; **no product pages** |
+| **M2** | Snowflake foundation | DDL + seed scripts re-runnable from repo; RAW tables populated; `SELECT`s return sane data |
+| **M3** | Curated twin | Dynamic Tables + Snowpark features live; `MACHINE_HEALTH` shows CNC-03 degrading |
+| **M4** | Prediction + explanation | `PREDICTION` + `AI_EXPLANATION` rows for CNC-03 with citations; offline replay works |
+| **M5** | Parts + impact | `PART_READINESS` and `IMPACT_ASSESSMENT` correct for the demo case, exposed through the API |
+| **M6** | Product pages + action | Factory Twin → Work Order flow clickable end to end; work order persists; Playwright flow green |
+| **M7** | Demo hardening | Fallback/cache, run-of-show, timings, `/demo` reset; full dry run under 5 min |
+| **M8+** | Stretch | Only after M7 is green (see §8) |
 
 Rule: **one milestone at a time**, and `PROGRESS.md` is updated at the end of every completed milestone.
 
@@ -416,3 +447,5 @@ Rule: **one milestone at a time**, and `PROGRESS.md` is updated at the end of ev
 3. Which Cortex model to pin for the demo (`mistral-large2` assumed) — verify in the account.
 4. Whether judges expect a live stream (beat-6 realism) or a deterministic replay — default is deterministic.
 5. Public repo hygiene: confirm the demo dataset may remain in the repo if small (< 5 MB), else seed on demand.
+6. How much 3D earns its keep: default is one asset view on Machine 360, with a plant-floor diorama on the
+   Factory Twin as stretch — decide after M7 based on remaining time and demo impact.

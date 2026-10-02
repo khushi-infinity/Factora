@@ -1,6 +1,6 @@
 # PROGRESS.md — Factora Build State
 
-**Phase:** M0 — Bootstrap (documentation + repo foundation)
+**Phase:** M2 — Snowflake foundation (next)
 **Last updated:** 2026-10-02
 **Repo:** https://github.com/khushi-infinity/Factora
 **Hackathon:** Snowflake CoCo CLI Hackathon 2026 — GCC Edition
@@ -11,88 +11,116 @@ with `PROJECT_SPEC.md` before changing code (rule 1).
 
 ## Current Goal
 
-Stand up the project foundation for **M0**: the six root documents (spec, agent rules, progress, readme,
-env template, gitignore) must be complete, mutually consistent, and free of secrets — with no application
-code written yet. Immediately after M0: **M1 — Snowflake foundation**, where the DDL and seed scripts in
-`snowflake/` become re-runnable from a clean account.
+**M2 — Snowflake foundation.** Make the account match the data model: schemas (`RAW` / `CURATED` /
+`ANALYTICS`), least-privilege roles, idempotent DDL, and an idempotent seed that plants the **CNC-03
+spindle-bearing degradation signature** in ≥ 90 days of synthetic telemetry, plus maintenance history,
+spare-parts inventory and knowledge documents. Exit criteria: scripts re-runnable from a clean account, and
+the sanity `SELECT`s in *Command Ledger* §3 returning sane data.
+
+**Blocker to resolve first:** the hackathon Snowflake credentials are not yet in `.env`, so the DDL can be
+authored but not yet *verified against the account* — and this repo's rule is that unverified work is not
+"complete" (AGENTS rule 3). See *Blockers*.
 
 ---
 
 ## Completed
 
 ### M0 — Bootstrap (docs) ✅
-- [x] `PROJECT_SPEC.md` — pitch (with pitch order), page list, architecture, tech stack, Snowflake vs.
-      local-app responsibilities, data model, MVP vs. stretch, core demo flow, guardrails, milestones, risks.
-- [x] `AGENTS.md` — the ten governing rules, verification protocol, repo map, working agreement.
-- [x] `PROGRESS.md` — this file, with the required sections and a command ledger.
-- [x] `README.md` — overview, quick start, structure, exact commands.
-- [x] `.env.example` — every env var as a placeholder, no real values.
-- [x] `.gitignore` — secrets, key material, build artefacts, caches, OS/editor noise.
-- [x] Git repository initialised; initial commit pushed to GitHub.
-- [x] Verification run: required sections present + secret scan clean (see *Test Status*).
+- [x] `PROJECT_SPEC.md`, `AGENTS.md`, `PROGRESS.md`, `README.md`, `.env.example`, `.gitignore`.
+- [x] Repo initialised and pushed; docs integrity + secret scan verified.
 
-**Nothing else is done.** No Snowflake objects, no seed data, no app code, no tests.
+### M1 — Application scaffold ✅
+- [x] **Stack decision (spec revision v0.2).** Local app is now **React 19 + Vite + TypeScript SPA
+      (`frontend/`) with a FastAPI backend (`backend/`)**, charts via **Recharts**, 3D via
+      **@react-three/fiber + @react-three/drei**, ML via **pandas / scikit-learn / joblib**, Snowflake via
+      **snowflake-connector-python** in the backend. `PROJECT_SPEC.md` §3, §4, §6, §11 and the `AGENTS.md`
+      repo map + verification protocol were reconciled in the same milestone (AGENTS rule 1).
+      *Next.js / SSR is now explicitly listed as not used.*
+- [x] **Dependency audit (AGENTS rule 5).** Everything added is free/open-source: React, Vite, TypeScript,
+      Tailwind CSS, Recharts, three.js, @react-three/fiber, @react-three/drei, FastAPI, Uvicorn, Pydantic,
+      pydantic-settings, snowflake-connector-python, pandas, numpy, scikit-learn, joblib, ESLint, Vitest,
+      pytest, httpx, ruff. **No paid API or keyed SaaS was introduced (rule 6).**
+- [x] **Backend scaffold.** App factory + CORS; typed settings that boot with *no* `.env` and *no*
+      credentials; `app/db/snowflake.py` as the only connector import, with key-pair auth preferred,
+      credential scrubbing and a TTL-cached `SELECT 1` probe; `/api/health` and `/api/health/live`;
+      OpenAPI docs at `/docs`; `app/ml/` reserved for M4.
+- [x] **Frontend scaffold.** Vite + React + Tailwind shell that calls the backend health endpoint through the
+      dev proxy; typed API client with timeouts; pure, unit-tested health helpers; Recharts panel; lazy-loaded
+      react-three-fiber panel behind an error boundary; planned-route inventory marking the 10 spec pages as
+      not built. **No product pages implemented, by instruction.**
+- [x] **Local run path documented** in `README.md` and *Command Ledger* §1–§2 (frontend + backend, separate
+      processes, ports 5173 / 8000). Detached-process note: in this environment a dev server must be started
+      with `( nohup … & )` and re-checked in the same shell invocation, or it is reaped with the command.
+
+**Nothing else is done.** No Snowflake objects, no seed data, no predictions, no product pages.
 
 ---
 
 ## In Progress
 
-- Nothing yet. Next action is planning **M1** (see *Next 3 Tasks*).
-- M1 open question being resolved first: which Cortex model is available in the hackathon account, and
-  whether `SNOWFLAKE.ML.FORECAST` is enabled (`PROJECT_SPEC.md` §13).
+- Nothing active. M1 is closed; the next action is resolving the credential blocker and starting M2.
 
 ---
 
 ## Next 3 Tasks
 
-1. **M1.1 — Snowflake object scaffolding.** Author `snowflake/01_schemas.sql` (RAW / CURATED / ANALYTICS),
-   the deployment role and least-privilege grants, so `snow sql` can create everything from a clean account.
-2. **M1.2 — Idempotent seed dataset.** Author `snowflake/02_seed.sql` + Snowpark generator producing
-   ≥ 90 days of synthetic telemetry for Line 1/2 machines, with the planted `CNC-03` spindle-bearing
-   degradation signature, maintenance history, parts inventory and knowledge docs.
-3. **M1.3 — Connection pre-flight.** Wire `.env` (from `.env.example`) into a `snow` connection test and
-   record the exact commands in the *Command Ledger*; confirm X-SMALL warehouse only, no cost-setting changes.
+1. **M2.1 — Snowflake object scaffolding.** Author `snowflake/01_schemas.sql`: databases/schemas
+   (`RAW` / `CURATED` / `ANALYTICS` / `AI`), `FACTORA_APP_ROLE` (read-mostly) and a separate deployment role,
+   least-privilege grants. Idempotent (`CREATE … IF NOT EXISTS`), no cost-control changes (AGENTS rule 7).
+2. **M2.2 — Idempotent seed dataset.** Author `snowflake/02_seed.sql` + a Snowpark/Python generator producing
+   ≥ 90 days of synthetic telemetry with the planted CNC-03 spindle-bearing signature, maintenance history,
+   parts inventory and knowledge docs — re-runnable, honest about being synthetic (labelled in the data).
+3. **M2.3 — Connection pre-flight.** Wire `.env` into `snow connection test -c factora`, add the M2 sanity
+   `SELECT`s to *Command Ledger* §3, and confirm the runtime role is X-SMALL/read-mostly with cost settings
+   untouched.
 
 ---
 
 ## Blockers
 
-- **None blocking M0.** M0 was fully completable locally.
-- Watch items (not blockers yet, tracked from `PROJECT_SPEC.md` §12):
-  - Cortex model availability + quota in the hackathon account (affects M3 wording and demo latency).
-  - Confirmation that `SNOWFLAKE.ML.FORECAST` is enabled; fallback is the transparent SQL/Snowpark
-    statistical baseline, which is already the MVP design.
-  - Snowflake account credentials are supplied out-of-band by the user and go **only** into `.env`
-    (gitignored). No credential belongs in this file.
+- **Snowflake credentials not yet supplied.** `.env` does not exist and no account/user/key has been issued to
+  this workspace, so M2's exit criterion (scripts run **twice** cleanly against the real account) cannot be
+  met yet. Authoring can proceed; **verification cannot**, and unverified work will not be marked complete.
+  → *Action for the user: provide the hackathon account details out-of-band into `.env` (never in git).*
+- Watch items (from `PROJECT_SPEC.md` §12/§13, still open):
+  - Which Cortex model is available in the account (`mistral-large2` assumed) — affects M4 wording/latency.
+  - Whether `SNOWFLAKE.ML.FORECAST` is enabled; the transparent SQL/Snowpark baseline is the MVP path either way.
+- **Not** a blocker, recorded for accuracy: `.env.example` documents Snowflake variables that remain unused
+  until M2; the backend reports `not_configured` rather than failing, by design.
 
 ---
 
 ## Test Status
 
-| Area | State | Evidence |
-|------|-------|----------|
-| Docs integrity (M0 gate) | ✅ pass | 6/6 required files, 9/9 required `PROJECT_SPEC.md` sections, 7/7 required `PROGRESS.md` sections, 10/10 `AGENTS.md` rules — commands in *Command Ledger* §1 |
-| Secret hygiene | ✅ pass | Scan returned exactly one hit: line 129 of this file, i.e. the scan's own regex text in the ledger. No key material or credential values exist in any file; `.env.example` holds placeholders only |
-| App typecheck / lint | ⏳ n/a | No application code exists yet (arrives M5); `npm run typecheck`/`lint` are not yet runnable |
-| Unit tests (Vitest) | ⏳ not started | Planned for scoring + impact helpers (M2/M4) |
-| Snowflake scripts | ⏳ not started | M1; each script must run twice cleanly (idempotency) before M1 closes |
-| E2E demo flow (Playwright) | ⏳ not started | M5/M6; must cover the six demo beats |
-| Dry run under 5 min | ⏳ not started | M6 |
+| Area | State | Evidence (exact commands in *Command Ledger*) |
+|------|-------|----------------------------------------------|
+| Frontend typecheck | ✅ pass | `npm run typecheck` — no output, exit 0 (`tsc --noEmit`, TypeScript 6.0) |
+| Frontend lint | ✅ pass | `npm run lint` — `eslint .`, no findings (ESLint 10, flat config) |
+| Frontend unit tests | ✅ pass | `npm test` — **11/11 passed** in `src/lib/health.test.ts` (Vitest 5) |
+| Frontend production build | ✅ pass | `npm run build` — 1143 modules, `dist/` emitted in 284 ms; three.js split into a lazy `three-vendor` chunk |
+| Backend lint | ✅ pass | `.venv/bin/ruff check .` — `All checks passed!` |
+| Backend tests | ✅ pass | `.venv/bin/pytest` — **28 passed, 1 warning** in 1.49 s (warning is third-party: Starlette advises `httpx2` for `TestClient`; recorded, not suppressed) |
+| Dependency smoke (ML stack) | ✅ pass | `tests/test_dependencies.py` — imports + a real `LinearRegression` fit on a pandas frame, so a broken native build cannot hide until M4 |
+| Credential-leak guard | ✅ pass | `tests/test_health.py` — API responses asserted free of password, passphrase, account and user |
+| Live API | ✅ pass | `uvicorn` + `curl /api/health` → `{"status":"ok", … "snowflake":{"status":"not_configured"}}` |
+| Live rendered shell | ✅ pass | Headless Chrome `--dump-dom` against the dev server: `Backend reachable`, `factora-backend`, `recharts-surface` and `<canvas>` all present, **no** error text; backend logged the browser's `GET /api/health` — proving proxy + fetch + render end to end. Screenshot: `/tmp/factora-shell.png` |
+| Snowflake scripts | ⏳ blocked | M2 — needs credentials (see *Blockers*) |
+| E2E demo flow (Playwright) | ⏳ not started | M6; the `tests/e2e/` directory arrives with it |
 
-**Honest note:** at M0 there is no build or test to run in the application sense — the gate was a
-documentation integrity check, and that is what the evidence above records. No milestone may be marked
-complete on the strength of "looks right" (`AGENTS.md` rule 3).
+**Honest note:** M1's gate was toolchain and plumbing, not product behaviour. There is no prediction, no
+Snowflake query and no product page behind any of the green rows above.
 
 ---
 
 ## Demo Status
 
-- **Status:** Not demo-able yet. No runnable app, no data, no predictions.
-- **First demo-able point:** end of **M5** (Factory Twin → CNC-03 → prediction → explanation → part check →
+- **Status:** Not demo-able. The shell states plainly that 0 / 10 product pages are built.
+- **What works on screen:** local shell loads, reports backend reachability and states Snowflake as
+  `not configured`, with chart and 3D toolchain panels rendering.
+- **First demo-able point:** end of **M6** (Factory Twin → CNC-03 → prediction → explanation → part check →
   work order clickable end to end).
-- **Judge-ready point:** end of **M6** (fallback/cache, `/demo` reset, timings, full dry run ≤ 5 min).
-- **Story locked:** `PROJECT_SPEC.md` §9 — 6 beats, ~5 minutes, CNC-03 spindle bearing degradation,
-  with a visible fallback path so the run never stalls.
+- **Judge-ready point:** end of **M7** (fallback/cache, `/demo` reset, timings, full dry run ≤ 5 min).
+- **Story locked:** `PROJECT_SPEC.md` §9 — 6 beats, ~5 minutes, CNC-03 spindle bearing degradation.
 
 ---
 
@@ -100,54 +128,58 @@ complete on the strength of "looks right" (`AGENTS.md` rule 3).
 
 Exact, copy-pasteable commands (`AGENTS.md` rule 10). Keep in sync with `README.md` Quick Start.
 
-### §1 — Runnable today (M0)
+### §1 — Run locally (verified at M1)
 
-**Required files exist**
 ```bash
-for f in PROJECT_SPEC.md PROGRESS.md AGENTS.md README.md .env.example .gitignore; do
-  [ -f "$f" ] && echo "OK   $f" || echo "MISS $f"; done
-```
-Expected: six `OK` lines, zero `MISS`.
+# Backend — FastAPI on :8000 (Python 3.11+; macOS `python3` is often 3.9, so be explicit)
+cd backend
+python3.11 -m venv .venv                                  # first time only
+.venv/bin/pip install -r requirements.txt -r requirements-dev.txt
+.venv/bin/uvicorn app.main:app --reload --port 8000
 
-**Required PROJECT_SPEC.md sections present**
+# Frontend — Vite on :5173 (proxies /api → 127.0.0.1:8000)
+cd frontend
+npm install                                               # first time only
+npm run dev                                               # http://localhost:5173
+```
+
+**Detached-start note (this environment):** a server started with `cmd &` is reaped when the shell command
+returns. Start it as `( nohup cmd > /tmp/log 2>&1 < /dev/null & )` and verify the port in the **same**
+command:
 ```bash
-for s in "Product Pitch" "Page List" "Architecture" "Tech Stack" "Snowflake Responsibilities" \
-         "Local App Responsibilities" "Data Model" "MVP vs Stretch" "Core Demo Flow"; do
-  grep -q "^## .*$s" PROJECT_SPEC.md && echo "OK   $s" || echo "MISS $s"; done
+( cd backend && nohup .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 > /tmp/factora-api.log 2>&1 < /dev/null & )
+for i in $(seq 1 15); do [ "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:8000/api/health)" = "200" ] && break; sleep 1; done
 ```
-Expected: nine `OK` lines.
 
-**Required PROGRESS.md sections present**
+### §2 — Verify (the M1 gate)
+
 ```bash
-for s in "Current Goal" "Completed" "In Progress" "Next 3 Tasks" "Blockers" "Test Status" "Demo Status"; do
-  grep -q "^## $s" PROGRESS.md && echo "OK   $s" || echo "MISS $s"; done
-```
-Expected: seven `OK` lines.
+# Frontend
+cd frontend
+npm run typecheck && npm run lint && npm test && npm run build
 
-**Secret scan (must print nothing)**
+# Backend
+cd backend
+.venv/bin/ruff check . && .venv/bin/pytest
+```
+
+**Live rendered-page check** (servers must be up first — see §1):
 ```bash
-grep -rInE "BEGIN [A-Z ]*PRIVATE KEY|aws_secret|sk-[A-Za-z0-9]{16,}|password[[:space:]]*=[[:space:]]*[\"'][^\"']{6,}" \
-  --exclude-dir=.git --exclude-dir=node_modules . || echo "clean"
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+  --headless=new --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader \
+  --virtual-time-budget=9000 --window-size=1440,1500 \
+  --screenshot=/tmp/factora-shell.png --dump-dom http://localhost:5173/ > /tmp/factora-dom.html
+grep -o "Backend reachable\|recharts-surface\|<canvas" /tmp/factora-dom.html | sort | uniq -c
 ```
-Expected: `clean`. **Known self-match:** the one line in this ledger that *documents* the pattern matches itself
-(currently `PROGRESS.md`); that is expected and is not a secret. Anything else — especially a match in
-`.env.example` with a real value, or any `*_KEY` in source — fails the gate.
+Expected: `Backend reachable`, `recharts-surface` and one `<canvas>`, with no error text.
 
-**Confirm nothing sensitive is tracked**
-```bash
-git ls-files | grep -E "\.env$|\.p8$|\.pem$|rsa_key|credentials" && echo "LEAK — remove" || echo "clean"
-```
-Expected: `clean`.
-
-### §2 — Planned, not yet runnable (M1+)
+### §3 — Snowflake (M2, awaiting credentials)
 
 | When | Command | Purpose |
 |------|---------|---------|
-| M1 | `snow connection test -c factora` | Verify `.env` credentials + warehouse reachability |
-| M1 | `snow sql -c factora -f snowflake/01_schemas.sql` | Create databases/schemas/roles (idempotent) |
-| M1 | `snow sql -c factora -f snowflake/02_seed.sql` | Load synthetic twin dataset |
-| M1 | `snow sql -c factora -q "SELECT COUNT(*) FROM FACTORA_DEV.RAW.SENSOR_READING;"` | Seed sanity check |
-| M2 | `snow sql -c factora -f snowflake/03_curated.sql` | Dynamic Tables / features |
-| M5 | `npm ci && npm run dev` | Run the app locally |
-| M5 | `npm run typecheck && npm run lint && npm test` | App gate |
+| M2 | `snow connection test -c factora` | Verify `.env` credentials + warehouse reachability |
+| M2 | `snow sql -c factora -f snowflake/01_schemas.sql` | Schemas, roles, grants (idempotent) |
+| M2 | `snow sql -c factora -f snowflake/02_seed.sql` | Load the synthetic twin dataset |
+| M2 | `snow sql -c factora -q "SELECT COUNT(*) FROM FACTORA_DEV.RAW.SENSOR_READING;"` | Seed sanity check |
+| M3 | `snow sql -c factora -f snowflake/03_curated.sql` | Dynamic Tables / curated features |
 | M6 | `npm run test:e2e` | Playwright walk of all six demo beats |
