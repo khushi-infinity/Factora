@@ -1,0 +1,33 @@
+part_id,name,category,compatible_machines,unit_cost_usd,stock_qty,reorder_point,lead_time_days,supplier
+BRG-AX-17,Axial spindle bearing 7014 CTYNDUL P4,bearing,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,412.0,2,3,7,Gulf Bearing Trading LLC
+BRG-PR-04,Press crankshaft roller bearing 23222,bearing,PRS-01;PRS-02;PRS-03;PRS-04,890.0,4,2,14,Emirates Industrial Supplies
+BRG-PK-09,Palletizer slewing ring bearing,bearing,PKG-02,2450.0,1,1,30,Gulf Bearing Trading LLC
+SPN-CN-02,CNC spindle cartridge BT40 12000rpm,spindle,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,6800.0,1,1,45,MachTech Gulf FZE
+HYD-AS-11,Hydraulic seal kit 80mm bore,seal_kit,PRS-01;PRS-02;PRS-03;PRS-04,240.0,6,3,5,Emirates Industrial Supplies
+FLT-CN-22,CNC coolant filter cartridge 25um,filter,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,58.0,18,8,3,FilterMart Middle East
+FLT-HY-07,Hydraulic return filter 10um,filter,PRS-01;PRS-02;PRS-03;PRS-04,74.0,9,4,3,FilterMart Middle East
+BLT-PK-05,Conveyor V-belt SPZ 1250,belt,PKG-01;PKG-03,32.0,12,6,4,Gulf Belting Co.
+BLT-AS-03,Robot axis timing belt HTD-5M,belt,ASM-01;ASM-02;ASM-03;ASM-04;ASM-05,46.0,7,4,6,Gulf Belting Co.
+SEN-IR-09,Infrared bearing temperature sensor,sensor,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,189.0,5,2,10,Sensors & Systems Dubai
+SEN-VB-02,Vibration sensor 100mV/g accelerometer,sensor,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08;PRS-01;PRS-02;PRS-03;PRS-04;ASM-01;ASM-02;ASM-03;ASM-04;ASM-05;PKG-01;PKG-02;PKG-03;PKG-04;QLT-01;QLT-02;QLT-03,215.0,4,2,10,Sensors & Systems Dubai
+ELT-CT-31,Motor contactor 65A AC-3,electrical,PRS-01;PRS-02;PRS-03;PRS-04;PKG-01;PKG-02;PKG-03;PKG-04,96.0,8,3,5,Emirates Electrical Trading
+ELT-PS-12,Servo drive power module 15kW,electrical,ASM-01;ASM-02;ASM-03;ASM-04;ASM-05,1980.0,1,1,21,MachTech Gulf FZE
+LUB-GR-02,High-speed spindle bearing grease (400g),lubricant,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,44.0,14,6,4,Gulf Lubricants LLC
+LUB-HY-05,ISO VG46 hydraulic oil (20L),lubricant,PRS-01;PRS-02;PRS-03;PRS-04,78.0,10,4,4,Gulf Lubricants LLC
+COL-CN-08,Semi-synthetic coolant concentrate (20L),lubricant,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,92.0,8,4,5,Gulf Lubricants LLC
+TOO-CN-14,BT40 tool holder set (4pc),tooling,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,560.0,3,2,12,MachTech Gulf FZE
+GN-QLT-06,CMM touch probe styli set (5pc),tooling,QLT-01;QLT-03,320.0,2,1,15,Metrology Gulf
+LGT-PK-11,Stretch wrapper carriage rollers,wearer,PKG-03,65.0,6,3,8,Emirates Industrial Supplies
+NOZ-CN-19,Coolant spray nozzle kit,wearer,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,28.0,20,10,3,Emirates Industrial Supplies
+BRG-AS-07,Robot harmonic drive bearing CSF-25,bearing,ASM-01;ASM-02;ASM-03;ASM-04;ASM-05,940.0,2,1,18,Gulf Bearing Trading LLC
+PMP-CN-11,Coolant pump 1.5kW with V-bolt mount,pump,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08,430.0,3,2,9,Emirates Industrial Supplies
+MOT-CN-21,Spindle drive motor 22kW,motor,CNC-05;CNC-06,5400.0,1,1,35,MachTech Gulf FZE
+VLV-HY-09,Proportional hydraulic valve cartridge,valve,PRS-01;PRS-02;PRS-03;PRS-04,760.0,3,2,12,Emirates Industrial Supplies
+SEN-PR-05,Press pressure transducer 0-600bar,sensor,PRS-01;PRS-02;PRS-03;PRS-04,310.0,4,2,10,Sensors & Systems Dubai
+SEN-PK-03,Photoelectric label sensor,sensor,PKG-01;PKG-02;PKG-03;PKG-04,145.0,6,3,7,Sensors & Systems Dubai
+FLT-PK-14,Pneumatic air filter element 5um,filter,PKG-01;PKG-02;PKG-03;PKG-04,26.0,15,8,3,FilterMart Middle East
+ELT-BR-08,Servo brake resistor 120 ohm,electrical,ASM-01;ASM-02;ASM-03;ASM-04;ASM-05,175.0,4,2,10,Emirates Electrical Trading
+CAB-AS-15,Robot dress-pack cable set,electrical,ASM-01;ASM-02;ASM-03;ASM-04;ASM-05,620.0,2,1,20,MachTech Gulf FZE
+CHN-PK-07,Conveyor roller chain 08B x 3m,wearer,PKG-01;PKG-02,88.0,5,3,6,Gulf Belting Co.
+GN-QLT-08,Vision lens and lighting kit,tooling,QLT-02,540.0,1,1,18,Metrology Gulf
+GRS-PL-01,Multipurpose EP2 grease (1kg),lubricant,CNC-01;CNC-02;CNC-03;CNC-04;CNC-05;CNC-06;CNC-07;CNC-08;PRS-01;PRS-02;PRS-03;PRS-04;ASM-01;ASM-02;ASM-03;ASM-04;ASM-05;PKG-01;PKG-02;PKG-03;PKG-04;QLT-01;QLT-02;QLT-03,22.0,24,12,3,Gulf Lubricants LLC

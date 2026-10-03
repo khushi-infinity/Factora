@@ -1,0 +1,55 @@
+event_id,machine_id,start_ts,end_ts,duration_minutes,cause_category,description,production_impact_units
+DT-001,PRS-04,2026-09-20T07:00:00,2026-09-20T07:17:00,17,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,156
+DT-002,PRS-01,2026-09-20T11:00:00,2026-09-20T11:27:00,27,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,249
+DT-003,CNC-05,2026-09-20T14:00:00,2026-09-20T14:07:00,7,operator_error,Unplanned stop logged by the shift supervisor (operator error).,3
+DT-004,CNC-02,2026-09-21T08:00:00,2026-09-21T08:14:00,14,unknown,Unplanned stop logged by the shift supervisor (unknown).,7
+DT-005,PRS-04,2026-09-21T10:00:00,2026-09-21T10:10:00,10,unknown,Unplanned stop logged by the shift supervisor (unknown).,92
+DT-006,ASM-03,2026-09-21T13:00:00,2026-09-21T13:11:00,11,operator_error,Unplanned stop logged by the shift supervisor (operator error).,19
+DT-007,ASM-05,2026-09-21T17:00:00,2026-09-21T17:39:00,39,changeover,Unplanned stop logged by the shift supervisor (changeover).,68
+DT-008,CNC-04,2026-09-21T17:00:00,2026-09-21T17:08:00,8,unknown,Unplanned stop logged by the shift supervisor (unknown).,4
+DT-009,QLT-02,2026-09-22T07:00:00,2026-09-22T07:22:00,22,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,31
+DT-010,PRS-02,2026-09-22T11:00:00,2026-09-22T11:09:00,9,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,83
+DT-011,CNC-08,2026-09-22T18:00:00,2026-09-22T18:09:00,9,unknown,Unplanned stop logged by the shift supervisor (unknown).,4
+DT-012,ASM-03,2026-09-23T07:00:00,2026-09-23T07:33:00,33,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,58
+DT-013,PRS-01,2026-09-23T11:00:00,2026-09-23T11:07:00,7,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,64
+DT-014,CNC-03,2026-09-23T14:00:00,2026-09-23T14:23:00,23,operator_error,Unplanned stop logged by the shift supervisor (operator error).,11
+DT-015,PKG-04,2026-09-23T16:00:00,2026-09-23T16:14:00,14,unknown,Unplanned stop logged by the shift supervisor (unknown).,262
+DT-016,PRS-04,2026-09-23T17:00:00,2026-09-23T17:17:00,17,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,156
+DT-017,QLT-03,2026-09-24T12:00:00,2026-09-24T12:11:00,11,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,15
+DT-018,CNC-02,2026-09-24T13:00:00,2026-09-24T13:16:00,16,unknown,Unplanned stop logged by the shift supervisor (unknown).,8
+DT-019,ASM-02,2026-09-25T14:00:00,2026-09-25T14:29:00,29,changeover,Unplanned stop logged by the shift supervisor (changeover).,51
+DT-020,CNC-07,2026-09-25T15:00:00,2026-09-25T15:38:00,38,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,19
+DT-021,PRS-02,2026-09-25T16:00:00,2026-09-25T16:38:00,38,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,350
+DT-022,CNC-04,2026-09-25T18:00:00,2026-09-25T18:13:00,13,operator_error,Unplanned stop logged by the shift supervisor (operator error).,6
+DT-023,ASM-04,2026-09-26T06:00:00,2026-09-26T06:15:00,15,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,26
+DT-024,CNC-08,2026-09-26T06:00:00,2026-09-26T06:32:00,32,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,16
+DT-025,PKG-03,2026-09-26T09:00:00,2026-09-26T09:31:00,31,unknown,Unplanned stop logged by the shift supervisor (unknown).,581
+DT-026,PRS-02,2026-09-26T12:00:00,2026-09-26T12:36:00,36,unknown,Unplanned stop logged by the shift supervisor (unknown).,332
+DT-027,CNC-05,2026-09-26T18:00:00,2026-09-26T18:08:00,8,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,4
+DT-028,PKG-02,2026-09-27T06:00:00,2026-09-27T06:26:00,26,unknown,Unplanned stop logged by the shift supervisor (unknown).,487
+DT-029,CNC-08,2026-09-27T09:00:00,2026-09-27T09:17:00,17,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,8
+DT-030,PRS-03,2026-09-28T07:00:00,2026-09-28T07:05:00,5,changeover,Unplanned stop logged by the shift supervisor (changeover).,46
+DT-031,PKG-01,2026-09-28T08:00:00,2026-09-28T08:22:00,22,changeover,Unplanned stop logged by the shift supervisor (changeover).,412
+DT-032,PRS-03,2026-09-28T08:00:00,2026-09-28T12:00:00,240,planned_maintenance,Quarterly hydraulic PM window (work order in progress at snapshot).,0
+DT-033,PRS-04,2026-09-28T09:00:00,2026-09-28T09:32:00,32,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,295
+DT-034,PKG-04,2026-09-29T06:00:00,2026-09-29T06:40:00,40,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,750
+DT-035,ASM-03,2026-09-29T07:00:00,2026-09-29T07:37:00,37,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,65
+DT-036,ASM-05,2026-09-29T07:00:00,2026-09-29T07:31:00,31,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,54
+DT-037,ASM-01,2026-09-29T10:00:00,2026-09-29T10:29:00,29,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,51
+DT-038,CNC-06,2026-09-29T11:00:00,2026-09-29T11:07:00,7,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,3
+DT-039,QLT-03,2026-09-29T11:00:00,2026-09-29T11:33:00,33,unknown,Unplanned stop logged by the shift supervisor (unknown).,47
+DT-040,PRS-03,2026-09-29T18:00:00,2026-09-29T18:29:00,29,unknown,Unplanned stop logged by the shift supervisor (unknown).,267
+DT-041,CNC-06,2026-09-30T17:00:00,2026-09-30T17:25:00,25,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,12
+DT-042,PKG-04,2026-10-01T00:00:00,,2880,electrical_failure,OPEN EVENT: labeler drive fault; machine offline pending spare (end_ts empty = ongoing).,0
+DT-043,PKG-03,2026-10-01T08:00:00,2026-10-01T08:20:00,20,mechanical_failure,Unplanned stop logged by the shift supervisor (mechanical failure).,375
+DT-044,CNC-01,2026-10-01T09:00:00,2026-10-01T09:28:00,28,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,14
+DT-045,CNC-07,2026-10-01T10:00:00,2026-10-01T10:21:00,21,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,10
+DT-046,ASM-01,2026-10-01T15:00:00,2026-10-01T15:35:00,35,unknown,Unplanned stop logged by the shift supervisor (unknown).,61
+DT-047,QLT-03,2026-10-01T18:00:00,2026-10-01T18:37:00,37,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,52
+DT-048,CNC-03,2026-10-02T09:00:00,2026-10-02T09:36:00,36,operator_error,Unplanned stop logged by the shift supervisor (operator error).,18
+DT-049,QLT-02,2026-10-02T10:00:00,2026-10-02T10:33:00,33,unknown,Unplanned stop logged by the shift supervisor (unknown).,47
+DT-050,PKG-03,2026-10-02T16:00:00,2026-10-02T16:25:00,25,material_shortage,Unplanned stop logged by the shift supervisor (material shortage).,468
+DT-051,PRS-04,2026-10-02T17:00:00,2026-10-02T17:28:00,28,electrical_failure,Unplanned stop logged by the shift supervisor (electrical failure).,258
+DT-052,CNC-02,2026-10-02T18:00:00,2026-10-02T18:31:00,31,changeover,Unplanned stop logged by the shift supervisor (changeover).,15
+DT-053,CNC-07,2026-10-03T06:00:00,2026-10-03T06:16:00,16,operator_error,Unplanned stop logged by the shift supervisor (operator error).,8
+DT-054,QLT-03,2026-10-03T13:00:00,2026-10-03T13:33:00,33,operator_error,Unplanned stop logged by the shift supervisor (operator error).,47

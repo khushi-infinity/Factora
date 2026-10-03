@@ -1,0 +1,60 @@
+{
+  "dataset": "factora-synthetic-factory",
+  "generator": "scripts/generate_factory_data.py",
+  "generator_sha256": "b5bbbf4a2589a5f43155829372d5639afc224058214bd6fd9e3d6e89d4a6fd6b",
+  "seed": 20261003,
+  "as_of": "2026-10-03T00:00:00",
+  "note": "All tables are synthetic (see data/README.md). The only real dataset is data/raw/ai4i2020.csv (UCI AI4I 2020, CC BY 4.0), used by the F3 model.",
+  "files": {
+    "machines": {
+      "rows": 24,
+      "sha256": "cfea3fad1b44283682fdb812e0f7adfa6fcabb2d6cdba4b112c3e31c367311df",
+      "bytes": 2140
+    },
+    "spare_parts": {
+      "rows": 32,
+      "sha256": "2211a11e5bcfd1228629d122b576d0c9bb6e941c58678f02d55119cd34bfeb88",
+      "bytes": 4197
+    },
+    "sensor_readings": {
+      "rows": 11136,
+      "sha256": "1f59d540117466e4f6611881c880d0cd4ca44ef959e95a42c883b0c074a10aea",
+      "bytes": 737762
+    },
+    "maintenance_history": {
+      "rows": 140,
+      "sha256": "368c185f86e4a4ca2aca88810b594535f655df181649cde75bb08328b9120ede",
+      "bytes": 24155
+    },
+    "work_orders": {
+      "rows": 97,
+      "sha256": "e83af7c3ea13a4f2cea6cdb36bbc503da850949e9fba24e84459716d857bca91",
+      "bytes": 27405
+    },
+    "production_runs": {
+      "rows": 336,
+      "sha256": "1899c8b9f3045d9681b5cac00cff26ed935816b08ac62fed73e5af2eda4d00a2",
+      "bytes": 18300
+    },
+    "downtime_events": {
+      "rows": 54,
+      "sha256": "837c4d58df346bf4f054c09e054ede0550c63fc0f089135dde6bcaf2abf158e1",
+      "bytes": 7607
+    },
+    "maintenance_knowledge": {
+      "rows": 49,
+      "sha256": "3220a411526c020d9cc1cef103ad80890e9382d6f161c444367984dff74491b1",
+      "bytes": 17897
+    }
+  },
+  "cnc03_scenario": {
+    "machine": "CNC-03",
+    "degradation_start": "2026-09-28T00:00:00",
+    "as_of": "2026-10-03T00:00:00",
+    "vibration_first24h_mean": 2.39,
+    "vibration_last24h_mean": 5.0,
+    "temp_first24h_mean": 62.03,
+    "temp_last24h_mean": 70.73,
+    "cadence": "10-minute for CNC-03, hourly for all other machines"
+  }
+}

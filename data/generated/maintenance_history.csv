@@ -1,0 +1,141 @@
+event_id,machine_id,event_ts,event_type,failure_mode,description,technician,duration_hours,downtime_hours,parts_used,work_order_id
+ME-001,PKG-02,2025-04-04T20:22:00,preventive,none,Preventive visit on Palletizer 1 at PKG-02: completed per SOP checklist.,J. D'Souza,5.1,0.0,,WO-0069
+ME-002,CNC-03,2025-04-07T05:40:00,corrective,sensor_fault,Corrective visit on CNC Machining Center 3 at CNC-03 (sensor fault): repair completed and function-tested.,A. Rahman,2.9,1.3,SEN-IR-09,WO-0009
+ME-003,CNC-04,2025-04-08T20:30:00,corrective,overstrain,Corrective visit on CNC Machining Center 4 at CNC-04 (overstrain): repair completed and function-tested.,M. Al-Farsi,5.6,4.3,,WO-0016
+ME-004,ASM-02,2025-04-10T20:07:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 2 at ASM-02 (belt slip): repair completed and function-tested.,V. Menon,1.9,0.8,BLT-AS-03,WO-0051
+ME-005,PRS-03,2025-04-10T23:44:00,preventive,none,Preventive visit on Hydraulic Press 3 at PRS-03: completed per SOP checklist.,V. Menon,1.5,0.0,,WO-0041
+ME-006,PRS-01,2025-04-15T08:05:00,corrective,overstrain,Corrective visit on Hydraulic Press 1 at PRS-01 (overstrain): repair completed and function-tested.,A. Rahman,0.8,0.5,,WO-0035
+ME-007,CNC-08,2025-04-17T18:18:00,inspection,none,Inspection visit on CNC Machining Center 6 at CNC-08: completed per SOP checklist.,V. Menon,5.3,0.0,,
+ME-008,PRS-03,2025-04-17T20:49:00,inspection,none,Inspection visit on Hydraulic Press 3 at PRS-03: completed per SOP checklist.,M. Al-Farsi,3.6,0.0,,
+ME-009,CNC-06,2025-04-26T04:52:00,calibration,none,Calibration visit on CNC Turning Center 2 at CNC-06: completed per SOP checklist.,V. Menon,4.4,0.0,,
+ME-010,ASM-05,2025-04-29T04:01:00,inspection,none,Inspection visit on Assembly Robot Cell 5 at ASM-05: completed per SOP checklist.,S. Kulkarni,2.3,0.0,,
+ME-011,CNC-03,2025-04-29T21:20:00,preventive,none,Preventive visit on CNC Machining Center 3 at CNC-03: completed per SOP checklist.,A. Rahman,4.6,0.0,,WO-0010
+ME-012,PRS-01,2025-05-02T02:33:00,corrective,electrical_fault,Corrective visit on Hydraulic Press 1 at PRS-01 (electrical fault): repair completed and function-tested.,J. D'Souza,1.2,0.5,ELT-CT-31,WO-0036
+ME-013,ASM-04,2025-05-04T13:46:00,preventive,none,Preventive visit on Assembly Robot Cell 4 at ASM-04: completed per SOP checklist.,M. Al-Farsi,2.4,0.0,,WO-0060
+ME-014,CNC-04,2025-05-13T14:37:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 4 at CNC-04 (heat dissipation): repair completed and function-tested.,J. D'Souza,4.9,4.3,COL-CN-08;FLT-CN-22,WO-0017
+ME-015,CNC-03,2025-05-25T18:00:00,preventive,none,Preventive visit on CNC Machining Center 3 at CNC-03: completed per SOP checklist.,A. Rahman,1.4,0.0,,WO-0011
+ME-016,ASM-01,2025-06-02T21:37:00,inspection,none,Inspection visit on Assembly Robot Cell 1 at ASM-01: completed per SOP checklist.,H. Al-Mansoori,3.8,0.0,,
+ME-017,CNC-06,2025-06-04T12:16:00,corrective,bearing_wear,Corrective visit on CNC Turning Center 2 at CNC-06 (bearing wear): repair completed and function-tested.,M. Al-Farsi,2.1,1.7,BRG-AX-17,WO-0024
+ME-018,ASM-02,2025-06-08T22:37:00,preventive,none,Preventive visit on Assembly Robot Cell 2 at ASM-02: completed per SOP checklist.,M. Al-Farsi,6.5,0.0,,WO-0052
+ME-019,QLT-03,2025-06-10T02:32:00,corrective,calibration_drift,Corrective visit on CMM Station 2 at QLT-03 (calibration drift): repair completed and function-tested.,M. Al-Farsi,2.4,1.2,GN-QLT-06,WO-0088
+ME-020,PKG-03,2025-06-23T10:12:00,inspection,none,Inspection visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,S. Kulkarni,5.2,0.0,,
+ME-021,PRS-04,2025-06-30T04:32:00,corrective,hydraulic_leak,Corrective visit on Hydraulic Press 4 at PRS-04 (hydraulic leak): repair completed and function-tested.,S. Kulkarni,4.2,2.8,HYD-AS-11,WO-0044
+ME-022,CNC-04,2025-06-30T08:34:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 4 at CNC-04 (bearing wear): repair completed and function-tested.,J. D'Souza,5.5,4.7,BRG-AX-17,WO-0018
+ME-023,PKG-04,2025-07-09T08:19:00,corrective,electrical_fault,Corrective visit on Labeler 1 at PKG-04 (electrical fault): repair completed and function-tested.,S. Kulkarni,6.1,4.7,ELT-CT-31,WO-0073
+ME-024,CNC-07,2025-07-16T03:49:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 5 at CNC-07 (heat dissipation): repair completed and function-tested.,J. D'Souza,1.4,1.1,COL-CN-08;FLT-CN-22,WO-0028
+ME-025,PKG-02,2025-07-26T02:58:00,calibration,none,Calibration visit on Palletizer 1 at PKG-02: completed per SOP checklist.,M. Al-Farsi,3.1,0.0,,
+ME-026,PRS-01,2025-07-26T13:52:00,corrective,overstrain,Corrective visit on Hydraulic Press 1 at PRS-01 (overstrain): repair completed and function-tested.,V. Menon,1.6,1.3,,WO-0037
+ME-027,ASM-01,2025-07-27T09:28:00,inspection,none,Inspection visit on Assembly Robot Cell 1 at ASM-01: completed per SOP checklist.,A. Rahman,1.3,0.0,,
+ME-028,PKG-03,2025-07-27T19:35:00,inspection,none,Inspection visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,V. Menon,3.2,0.0,,
+ME-029,PKG-02,2025-08-04T04:29:00,corrective,belt_slip,Corrective visit on Palletizer 1 at PKG-02 (belt slip): repair completed and function-tested.,H. Al-Mansoori,0.8,0.7,CHN-PK-07,WO-0070
+ME-030,CNC-07,2025-08-10T21:55:00,preventive,none,Preventive visit on CNC Machining Center 5 at CNC-07: completed per SOP checklist.,V. Menon,5.4,0.0,,WO-0029
+ME-031,QLT-02,2025-08-12T00:19:00,corrective,sensor_fault,Corrective visit on Vision Inspection 1 at QLT-02 (sensor fault): repair completed and function-tested.,A. Rahman,3.7,3.3,SEN-VB-02,WO-0085
+ME-032,ASM-04,2025-08-17T02:18:00,inspection,none,Inspection visit on Assembly Robot Cell 4 at ASM-04: completed per SOP checklist.,M. Al-Farsi,2.3,0.0,,
+ME-033,QLT-03,2025-08-21T00:53:00,preventive,none,Preventive visit on CMM Station 2 at QLT-03: completed per SOP checklist.,A. Rahman,3.4,0.0,,WO-0089
+ME-034,CNC-02,2025-08-24T19:50:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 2 at CNC-02 (bearing wear): repair completed and function-tested.,J. D'Souza,5.8,5.2,BRG-AX-17,WO-0005
+ME-035,PKG-02,2025-08-26T05:25:00,inspection,none,Inspection visit on Palletizer 1 at PKG-02: completed per SOP checklist.,M. Al-Farsi,1.0,0.0,,
+ME-036,CNC-07,2025-08-26T08:25:00,inspection,none,Inspection visit on CNC Machining Center 5 at CNC-07: completed per SOP checklist.,M. Al-Farsi,1.4,0.0,,
+ME-037,QLT-01,2025-08-30T19:09:00,preventive,none,Preventive visit on CMM Station 1 at QLT-01: completed per SOP checklist.,H. Al-Mansoori,3.5,0.0,,WO-0079
+ME-038,ASM-03,2025-09-05T23:05:00,inspection,none,Inspection visit on Assembly Robot Cell 3 at ASM-03: completed per SOP checklist.,V. Menon,2.1,0.0,,
+ME-039,ASM-05,2025-09-12T13:53:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 5 at ASM-05 (belt slip): repair completed and function-tested.,A. Rahman,6.1,5.7,BLT-AS-03,WO-0063
+ME-040,PRS-02,2025-09-14T17:59:00,inspection,none,Inspection visit on Hydraulic Press 2 at PRS-02: completed per SOP checklist.,M. Al-Farsi,3.8,0.0,,
+ME-041,PRS-03,2025-09-21T20:24:00,inspection,none,Inspection visit on Hydraulic Press 3 at PRS-03: completed per SOP checklist.,V. Menon,3.0,0.0,,
+ME-042,ASM-04,2025-09-26T21:37:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 4 at ASM-04 (belt slip): repair completed and function-tested.,M. Al-Farsi,4.8,3.0,BLT-AS-03,WO-0061
+ME-043,PKG-04,2025-10-27T08:17:00,preventive,none,Preventive visit on Labeler 1 at PKG-04: completed per SOP checklist.,H. Al-Mansoori,3.7,0.0,,WO-0074
+ME-044,PRS-04,2025-11-05T10:27:00,corrective,hydraulic_leak,Corrective visit on Hydraulic Press 4 at PRS-04 (hydraulic leak): repair completed and function-tested.,V. Menon,5.5,2.7,HYD-AS-11,WO-0045
+ME-045,PKG-01,2025-11-07T17:42:00,corrective,belt_slip,Corrective visit on Case Packer 1 at PKG-01 (belt slip): repair completed and function-tested.,V. Menon,1.7,1.4,BLT-PK-05,WO-0066
+ME-046,PKG-01,2025-11-15T19:14:00,inspection,none,Inspection visit on Case Packer 1 at PKG-01: completed per SOP checklist.,V. Menon,3.0,0.0,,
+ME-047,ASM-01,2025-11-19T08:33:00,preventive,none,Preventive visit on Assembly Robot Cell 1 at ASM-01: completed per SOP checklist.,M. Al-Farsi,3.8,0.0,,WO-0049
+ME-048,PKG-04,2025-12-02T06:36:00,preventive,none,Preventive visit on Labeler 1 at PKG-04: completed per SOP checklist.,A. Rahman,4.2,0.0,,WO-0075
+ME-049,PKG-01,2025-12-02T18:01:00,inspection,none,Inspection visit on Case Packer 1 at PKG-01: completed per SOP checklist.,J. D'Souza,6.3,0.0,,
+ME-050,CNC-05,2025-12-04T08:47:00,corrective,heat_dissipation,Corrective visit on CNC Turning Center 1 at CNC-05 (heat dissipation): repair completed and function-tested.,M. Al-Farsi,2.6,2.4,COL-CN-08;FLT-CN-22,WO-0019
+ME-051,QLT-03,2025-12-06T04:23:00,corrective,sensor_fault,Corrective visit on CMM Station 2 at QLT-03 (sensor fault): repair completed and function-tested.,A. Rahman,1.9,1.3,SEN-VB-02,WO-0090
+ME-052,ASM-05,2025-12-12T03:58:00,inspection,none,Inspection visit on Assembly Robot Cell 5 at ASM-05: completed per SOP checklist.,M. Al-Farsi,5.1,0.0,,
+ME-053,QLT-03,2025-12-13T14:23:00,preventive,none,Preventive visit on CMM Station 2 at QLT-03: completed per SOP checklist.,S. Kulkarni,4.7,0.0,,WO-0091
+ME-054,CNC-03,2025-12-14T10:20:00,corrective,bearing_wear,Spindle front bearing replaced after vibration alarm (6.1 mm/s RMS) and 74 C bearing temperature.,M. Al-Farsi,5.5,4.4,BRG-AX-17,WO-0014
+ME-055,PRS-01,2025-12-18T06:12:00,inspection,none,Inspection visit on Hydraulic Press 1 at PRS-01: completed per SOP checklist.,A. Rahman,0.9,0.0,,
+ME-056,ASM-02,2025-12-19T12:03:00,preventive,none,Preventive visit on Assembly Robot Cell 2 at ASM-02: completed per SOP checklist.,S. Kulkarni,4.0,0.0,,WO-0053
+ME-057,CNC-04,2025-12-20T07:49:00,inspection,none,Inspection visit on CNC Machining Center 4 at CNC-04: completed per SOP checklist.,S. Kulkarni,1.7,0.0,,
+ME-058,QLT-02,2025-12-22T01:44:00,inspection,none,Inspection visit on Vision Inspection 1 at QLT-02: completed per SOP checklist.,V. Menon,6.5,0.0,,
+ME-059,ASM-02,2025-12-22T07:53:00,calibration,none,Calibration visit on Assembly Robot Cell 2 at ASM-02: completed per SOP checklist.,A. Rahman,3.9,0.0,,
+ME-060,CNC-05,2025-12-22T11:05:00,preventive,none,Preventive visit on CNC Turning Center 1 at CNC-05: completed per SOP checklist.,S. Kulkarni,1.6,0.0,,WO-0020
+ME-061,CNC-05,2025-12-28T02:48:00,preventive,none,Preventive visit on CNC Turning Center 1 at CNC-05: completed per SOP checklist.,M. Al-Farsi,3.4,0.0,,WO-0021
+ME-062,CNC-06,2025-12-31T10:03:00,corrective,overstrain,Corrective visit on CNC Turning Center 2 at CNC-06 (overstrain): repair completed and function-tested.,J. D'Souza,5.4,2.6,,WO-0025
+ME-063,ASM-02,2026-01-03T15:31:00,preventive,none,Preventive visit on Assembly Robot Cell 2 at ASM-02: completed per SOP checklist.,M. Al-Farsi,2.0,0.0,,WO-0054
+ME-064,ASM-01,2026-01-06T00:20:00,inspection,none,Inspection visit on Assembly Robot Cell 1 at ASM-01: completed per SOP checklist.,J. D'Souza,3.2,0.0,,
+ME-065,CNC-05,2026-01-06T08:08:00,corrective,sensor_fault,Corrective visit on CNC Turning Center 1 at CNC-05 (sensor fault): repair completed and function-tested.,S. Kulkarni,5.1,4.2,SEN-IR-09,WO-0022
+ME-066,PRS-02,2026-01-08T07:20:00,inspection,none,Inspection visit on Hydraulic Press 2 at PRS-02: completed per SOP checklist.,A. Rahman,5.8,0.0,,
+ME-067,PKG-03,2026-01-14T06:52:00,calibration,none,Calibration visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,A. Rahman,5.2,0.0,,
+ME-068,PKG-02,2026-01-15T13:29:00,inspection,none,Inspection visit on Palletizer 1 at PKG-02: completed per SOP checklist.,A. Rahman,5.4,0.0,,
+ME-069,QLT-03,2026-01-26T00:02:00,preventive,none,Preventive visit on CMM Station 2 at QLT-03: completed per SOP checklist.,M. Al-Farsi,4.6,0.0,,WO-0092
+ME-070,CNC-02,2026-01-26T03:02:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 2 at CNC-02 (heat dissipation): repair completed and function-tested.,A. Rahman,3.5,2.4,COL-CN-08;FLT-CN-22,WO-0006
+ME-071,CNC-08,2026-01-30T10:28:00,preventive,none,Preventive visit on CNC Machining Center 6 at CNC-08: completed per SOP checklist.,J. D'Souza,3.1,0.0,,WO-0032
+ME-072,PKG-04,2026-02-02T07:42:00,preventive,none,Preventive visit on Labeler 1 at PKG-04: completed per SOP checklist.,A. Rahman,2.6,0.0,,WO-0076
+ME-073,ASM-03,2026-02-03T17:26:00,preventive,none,Preventive visit on Assembly Robot Cell 3 at ASM-03: completed per SOP checklist.,H. Al-Mansoori,0.9,0.0,,WO-0056
+ME-074,CNC-01,2026-02-04T21:28:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 1 at CNC-01 (bearing wear): repair completed and function-tested.,H. Al-Mansoori,5.6,3.7,BRG-AX-17,WO-0001
+ME-075,ASM-02,2026-02-05T10:37:00,preventive,none,Preventive visit on Assembly Robot Cell 2 at ASM-02: completed per SOP checklist.,J. D'Souza,1.4,0.0,,WO-0055
+ME-076,PRS-04,2026-02-16T03:46:00,corrective,bearing_wear,Corrective visit on Hydraulic Press 4 at PRS-04 (bearing wear): repair completed and function-tested.,M. Al-Farsi,2.8,1.8,BRG-PR-04,WO-0046
+ME-077,PKG-01,2026-02-22T05:48:00,preventive,none,Preventive visit on Case Packer 1 at PKG-01: completed per SOP checklist.,A. Rahman,0.8,0.0,,WO-0067
+ME-078,ASM-04,2026-02-25T00:11:00,calibration,none,Calibration visit on Assembly Robot Cell 4 at ASM-04: completed per SOP checklist.,J. D'Souza,3.7,0.0,,
+ME-079,PRS-02,2026-02-25T01:01:00,corrective,bearing_wear,Corrective visit on Hydraulic Press 2 at PRS-02 (bearing wear): repair completed and function-tested.,S. Kulkarni,1.6,1.5,BRG-PR-04,WO-0039
+ME-080,PKG-03,2026-03-03T13:35:00,preventive,none,Preventive visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,H. Al-Mansoori,5.0,0.0,,WO-0072
+ME-081,PRS-03,2026-03-03T17:20:00,corrective,hydraulic_leak,Corrective visit on Hydraulic Press 3 at PRS-03 (hydraulic leak): repair completed and function-tested.,J. D'Souza,3.2,2.8,HYD-AS-11,WO-0042
+ME-082,CNC-06,2026-03-04T08:03:00,preventive,none,Preventive visit on CNC Turning Center 2 at CNC-06: completed per SOP checklist.,M. Al-Farsi,0.8,0.0,,WO-0026
+ME-083,CNC-01,2026-03-04T16:06:00,inspection,none,Inspection visit on CNC Machining Center 1 at CNC-01: completed per SOP checklist.,J. D'Souza,0.9,0.0,,
+ME-084,QLT-01,2026-03-05T22:08:00,corrective,sensor_fault,Corrective visit on CMM Station 1 at QLT-01 (sensor fault): repair completed and function-tested.,S. Kulkarni,1.0,0.8,SEN-VB-02,WO-0080
+ME-085,PRS-04,2026-03-06T04:27:00,preventive,none,Preventive visit on Hydraulic Press 4 at PRS-04: completed per SOP checklist.,A. Rahman,4.0,0.0,,WO-0047
+ME-086,ASM-03,2026-03-11T23:05:00,corrective,sensor_fault,Corrective visit on Assembly Robot Cell 3 at ASM-03 (sensor fault): repair completed and function-tested.,M. Al-Farsi,1.3,1.0,SEN-VB-02,WO-0057
+ME-087,ASM-05,2026-03-13T15:34:00,corrective,bearing_wear,Corrective visit on Assembly Robot Cell 5 at ASM-05 (bearing wear): repair completed and function-tested.,S. Kulkarni,0.8,0.4,,WO-0064
+ME-088,PKG-03,2026-03-15T12:58:00,inspection,none,Inspection visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,S. Kulkarni,3.8,0.0,,
+ME-089,PRS-02,2026-04-02T09:18:00,corrective,hydraulic_leak,Corrective visit on Hydraulic Press 2 at PRS-02 (hydraulic leak): repair completed and function-tested.,J. D'Souza,2.1,1.9,HYD-AS-11,WO-0040
+ME-090,CNC-07,2026-04-06T22:16:00,corrective,spindle_drift,Corrective visit on CNC Machining Center 5 at CNC-07 (spindle drift): repair completed and function-tested.,S. Kulkarni,1.4,0.6,SPN-CN-02,WO-0030
+ME-091,CNC-01,2026-04-13T00:42:00,preventive,none,Preventive visit on CNC Machining Center 1 at CNC-01: completed per SOP checklist.,M. Al-Farsi,5.4,0.0,,WO-0002
+ME-092,CNC-03,2026-04-19T14:51:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 3 at CNC-03 (heat dissipation): repair completed and function-tested.,H. Al-Mansoori,6.3,3.7,COL-CN-08;FLT-CN-22,WO-0012
+ME-093,CNC-06,2026-04-20T04:32:00,inspection,none,Inspection visit on CNC Turning Center 2 at CNC-06: completed per SOP checklist.,V. Menon,5.9,0.0,,
+ME-094,CNC-02,2026-04-26T12:50:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 2 at CNC-02 (bearing wear): repair completed and function-tested.,M. Al-Farsi,5.7,5.0,BRG-AX-17,WO-0007
+ME-095,PRS-03,2026-04-26T23:14:00,inspection,none,Inspection visit on Hydraulic Press 3 at PRS-03: completed per SOP checklist.,M. Al-Farsi,4.1,0.0,,
+ME-096,CNC-03,2026-05-01T16:21:00,inspection,none,Inspection visit on CNC Machining Center 3 at CNC-03: completed per SOP checklist.,V. Menon,3.9,0.0,,
+ME-097,CNC-03,2026-05-02T08:05:00,corrective,bearing_wear,Repeat spindle bearing replacement; grease analysis showed metal particles. Vibration back to 2.3 mm/s after swap.,M. Al-Farsi,5.0,4.0,BRG-AX-17,WO-0015
+ME-098,CNC-01,2026-05-03T21:20:00,corrective,spindle_drift,Corrective visit on CNC Machining Center 1 at CNC-01 (spindle drift): repair completed and function-tested.,M. Al-Farsi,2.8,2.5,SPN-CN-02,WO-0003
+ME-099,CNC-08,2026-05-04T01:48:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 6 at CNC-08 (heat dissipation): repair completed and function-tested.,J. D'Souza,0.9,0.8,COL-CN-08;FLT-CN-22,WO-0033
+ME-100,PRS-03,2026-05-04T06:15:00,corrective,hydraulic_leak,Corrective visit on Hydraulic Press 3 at PRS-03 (hydraulic leak): repair completed and function-tested.,V. Menon,3.1,2.1,HYD-AS-11,WO-0043
+ME-101,CNC-05,2026-05-07T06:20:00,inspection,none,Inspection visit on CNC Turning Center 1 at CNC-05: completed per SOP checklist.,M. Al-Farsi,4.9,0.0,,
+ME-102,CNC-08,2026-05-07T12:30:00,corrective,spindle_drift,Corrective visit on CNC Machining Center 6 at CNC-08 (spindle drift): repair completed and function-tested.,S. Kulkarni,3.7,3.4,SPN-CN-02,WO-0034
+ME-103,CNC-02,2026-05-09T18:46:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 2 at CNC-02 (bearing wear): repair completed and function-tested.,V. Menon,6.2,5.2,BRG-AX-17,WO-0008
+ME-104,QLT-02,2026-05-14T11:19:00,preventive,none,Preventive visit on Vision Inspection 1 at QLT-02: completed per SOP checklist.,S. Kulkarni,3.9,0.0,,WO-0086
+ME-105,QLT-01,2026-05-19T15:02:00,corrective,sensor_fault,Corrective visit on CMM Station 1 at QLT-01 (sensor fault): repair completed and function-tested.,H. Al-Mansoori,5.3,2.7,SEN-VB-02,WO-0081
+ME-106,CNC-03,2026-05-23T13:00:00,corrective,heat_dissipation,Corrective visit on CNC Machining Center 3 at CNC-03 (heat dissipation): repair completed and function-tested.,S. Kulkarni,5.2,4.3,COL-CN-08;FLT-CN-22,WO-0013
+ME-107,CNC-05,2026-06-08T02:49:00,preventive,none,Preventive visit on CNC Turning Center 1 at CNC-05: completed per SOP checklist.,H. Al-Mansoori,5.8,0.0,,WO-0023
+ME-108,PKG-03,2026-06-08T07:27:00,calibration,none,Calibration visit on Stretch Wrapper 1 at PKG-03: completed per SOP checklist.,M. Al-Farsi,5.8,0.0,,
+ME-109,ASM-05,2026-06-13T07:31:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 5 at ASM-05 (belt slip): repair completed and function-tested.,A. Rahman,5.3,3.2,BLT-AS-03,WO-0065
+ME-110,PKG-01,2026-06-16T07:23:00,preventive,none,Preventive visit on Case Packer 1 at PKG-01: completed per SOP checklist.,S. Kulkarni,5.0,0.0,,WO-0068
+ME-111,CNC-01,2026-06-18T10:20:00,corrective,overstrain,Corrective visit on CNC Machining Center 1 at CNC-01 (overstrain): repair completed and function-tested.,V. Menon,6.3,3.1,,WO-0004
+ME-112,PRS-02,2026-06-18T22:19:00,inspection,none,Inspection visit on Hydraulic Press 2 at PRS-02: completed per SOP checklist.,M. Al-Farsi,5.5,0.0,,
+ME-113,ASM-05,2026-06-20T16:14:00,calibration,none,Calibration visit on Assembly Robot Cell 5 at ASM-05: completed per SOP checklist.,A. Rahman,0.8,0.0,,
+ME-114,CNC-06,2026-06-21T07:44:00,preventive,none,Preventive visit on CNC Turning Center 2 at CNC-06: completed per SOP checklist.,V. Menon,3.0,0.0,,WO-0027
+ME-115,QLT-01,2026-06-21T17:32:00,preventive,none,Preventive visit on CMM Station 1 at QLT-01: completed per SOP checklist.,A. Rahman,1.1,0.0,,WO-0082
+ME-116,PRS-02,2026-06-22T13:02:00,inspection,none,Inspection visit on Hydraulic Press 2 at PRS-02: completed per SOP checklist.,M. Al-Farsi,2.6,0.0,,
+ME-117,PRS-01,2026-06-23T15:56:00,inspection,none,Inspection visit on Hydraulic Press 1 at PRS-01: completed per SOP checklist.,M. Al-Farsi,5.6,0.0,,
+ME-118,CNC-04,2026-06-26T20:00:00,inspection,none,Inspection visit on CNC Machining Center 4 at CNC-04: completed per SOP checklist.,J. D'Souza,2.1,0.0,,
+ME-119,QLT-01,2026-07-01T00:34:00,preventive,none,Preventive visit on CMM Station 1 at QLT-01: completed per SOP checklist.,J. D'Souza,5.1,0.0,,WO-0083
+ME-120,ASM-04,2026-07-03T04:42:00,calibration,none,Calibration visit on Assembly Robot Cell 4 at ASM-04: completed per SOP checklist.,S. Kulkarni,1.8,0.0,,
+ME-121,PKG-01,2026-07-06T08:53:00,inspection,none,Inspection visit on Case Packer 1 at PKG-01: completed per SOP checklist.,J. D'Souza,4.4,0.0,,
+ME-122,QLT-02,2026-07-09T02:46:00,preventive,none,Preventive visit on Vision Inspection 1 at QLT-02: completed per SOP checklist.,A. Rahman,1.7,0.0,,WO-0087
+ME-123,CNC-02,2026-07-10T05:52:00,calibration,none,Calibration visit on CNC Machining Center 2 at CNC-02: completed per SOP checklist.,M. Al-Farsi,1.9,0.0,,
+ME-124,ASM-03,2026-07-13T09:22:00,preventive,none,Preventive visit on Assembly Robot Cell 3 at ASM-03: completed per SOP checklist.,S. Kulkarni,0.9,0.0,,WO-0058
+ME-125,PKG-04,2026-07-19T09:30:00,corrective,bearing_wear,Corrective visit on Labeler 1 at PKG-04 (bearing wear): repair completed and function-tested.,A. Rahman,1.6,1.0,,WO-0077
+ME-126,CNC-07,2026-07-21T07:03:00,corrective,bearing_wear,Corrective visit on CNC Machining Center 5 at CNC-07 (bearing wear): repair completed and function-tested.,S. Kulkarni,4.9,4.6,BRG-AX-17,WO-0031
+ME-127,QLT-01,2026-07-22T04:42:00,corrective,sensor_fault,Corrective visit on CMM Station 1 at QLT-01 (sensor fault): repair completed and function-tested.,A. Rahman,2.5,1.2,SEN-VB-02,WO-0084
+ME-128,PRS-04,2026-07-23T03:09:00,preventive,none,Preventive visit on Hydraulic Press 4 at PRS-04: completed per SOP checklist.,S. Kulkarni,6.2,0.0,,WO-0048
+ME-129,ASM-04,2026-07-26T08:31:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 4 at ASM-04 (belt slip): repair completed and function-tested.,A. Rahman,5.0,3.1,BLT-AS-03,WO-0062
+ME-130,ASM-01,2026-08-11T17:54:00,corrective,belt_slip,Corrective visit on Assembly Robot Cell 1 at ASM-01 (belt slip): repair completed and function-tested.,S. Kulkarni,2.8,2.7,BLT-AS-03,WO-0050
+ME-131,PRS-01,2026-08-12T11:36:00,corrective,overstrain,Corrective visit on Hydraulic Press 1 at PRS-01 (overstrain): repair completed and function-tested.,M. Al-Farsi,1.8,1.7,,WO-0038
+ME-132,ASM-03,2026-08-13T00:49:00,preventive,none,Preventive visit on Assembly Robot Cell 3 at ASM-03: completed per SOP checklist.,A. Rahman,5.2,0.0,,WO-0059
+ME-133,ASM-01,2026-08-13T20:25:00,inspection,none,Inspection visit on Assembly Robot Cell 1 at ASM-01: completed per SOP checklist.,H. Al-Mansoori,1.8,0.0,,
+ME-134,PKG-04,2026-08-19T04:54:00,corrective,bearing_wear,Corrective visit on Labeler 1 at PKG-04 (bearing wear): repair completed and function-tested.,J. D'Souza,1.1,1.0,,WO-0078
+ME-135,QLT-02,2026-08-26T02:42:00,calibration,none,Calibration visit on Vision Inspection 1 at QLT-02: completed per SOP checklist.,S. Kulkarni,4.0,0.0,,
+ME-136,CNC-08,2026-08-31T17:18:00,inspection,none,Inspection visit on CNC Machining Center 6 at CNC-08: completed per SOP checklist.,V. Menon,2.3,0.0,,
+ME-137,CNC-01,2026-09-05T23:46:00,inspection,none,Inspection visit on CNC Machining Center 1 at CNC-01: completed per SOP checklist.,V. Menon,3.1,0.0,,
+ME-138,CNC-04,2026-09-06T20:44:00,calibration,none,Calibration visit on CNC Machining Center 4 at CNC-04: completed per SOP checklist.,J. D'Souza,6.0,0.0,,
+ME-139,CNC-08,2026-09-15T06:45:00,inspection,none,Inspection visit on CNC Machining Center 6 at CNC-08: completed per SOP checklist.,V. Menon,5.6,0.0,,
+ME-140,PKG-02,2026-09-18T03:36:00,corrective,belt_slip,Corrective visit on Palletizer 1 at PKG-02 (belt slip): repair completed and function-tested.,V. Menon,1.4,0.9,CHN-PK-07,WO-0071

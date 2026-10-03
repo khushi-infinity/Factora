@@ -1,0 +1,16 @@
+[tool.ruff]
+# Root lint config for `scripts/` (backend/ has its own pyproject.toml and stays at 110).
+# scripts/ gets a 120-column budget: the generator carries prose-heavy CSV literals.
+# Documented deviations for scripts/:
+#  - DTZ: AS_OF is deliberately a fixed naive timestamp (determinism, see generator docstring)
+#  - ISC004: the knowledge-corpus tuples use multi-line implicit string concatenation by design
+line-length = 120
+target-version = "py311"
+exclude = [".venv", "__pycache__", "frontend", "backend", "mockup", "data", "node_modules"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+extend-select = ["DTZ", "ISC"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["DTZ", "ISC004"]

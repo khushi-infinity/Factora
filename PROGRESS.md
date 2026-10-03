@@ -1,7 +1,7 @@
 # PROGRESS.md — Factora Build State
 
-**Phase:** F2 — datasets + synthetic factory generator (next); plan now follows the build playbook
-**Last updated:** 2026-10-02
+**Phase:** F2 — datasets + synthetic factory generator ✅ (F3 next); plan follows the build playbook
+**Last updated:** 2026-10-03
 **Repo:** https://github.com/khushi-infinity/Factora
 **Hackathon:** Snowflake CoCo CLI Hackathon 2026 — GCC Edition
 **Rule:** update this file at the end of every completed milestone (`AGENTS.md` rule 9). Read it together
@@ -16,12 +16,11 @@ Control files in play: `PROJECT_SPEC.md`, `AGENTS.md`, `PROGRESS.md`, `README.md
 
 ## Current Goal
 
-**F2 — Datasets + synthetic factory generator.** Produce the data the whole demo stands on, locally and
-deterministically: `scripts/download_ai4i.py` for the UCI AI4I 2020 baseline, `scripts/generate_factory_data.py`
-for the synthetic factory context, and `data/README.md` documenting every column and which fields are
-synthetic. Exit criteria (AGENTS verification protocol): generator re-runs give identical output for the same
-seed, every CSV is non-empty and internally consistent, 24 machines carry twin coordinates, CNC-03 has a
-scripted degradation scenario, and `BRG-AX-17` is CNC-03's compatible bearing with limited stock.
+**F3 — Baseline failure model.** Train the scikit-learn baseline on the AI4I 2020 dataset (`ml/train.py`),
+expose deterministic local inference (`ml/predict.py`), document honest metrics and limitations in
+`ml/MODEL_CARD.md`, and keep the CNC-03 demo adapter separate from the real evaluation. Exit criteria
+(AGENTS verification protocol): `ml/train.py` reproduces the metrics quoted in `MODEL_CARD.md`, the inference
+smoke test passes, and the demo adapter is documented and kept separate from the real evaluation.
 
 ---
 
@@ -66,28 +65,50 @@ scripted degradation scenario, and `BRG-AX-17` is CNC-03's compatible bearing wi
       playbook routes with MUST/SHOULD scope.
 - [x] `.env.example` updated to `FACTORA_WH` / `FACTORA` / `CORE`.
 
-**Nothing else is done.** No datasets, no ML model, no Snowflake objects, no product pages.
+### F2 — Datasets + synthetic factory generator ✅
+- [x] **`scripts/download_ai4i.py`:** fetches the UCI AI4I 2020 CSV from the official endpoint,
+      sha256-verified (`dc6630cd…c8a8e`, BOM-tolerant read), prints manual-download instructions if blocked,
+      `--check` re-validates offline. `data/raw/ai4i2020.csv` committed (10,000 × 14, CC BY 4.0, cited in
+      `data/README.md`).
+- [x] **`scripts/generate_factory_data.py` (stdlib-only):** deterministic generator — master seed `20261003`,
+      one SHA-256-derived RNG per domain, fixed `AS_OF = 2026-10-03T00:00:00` (never reads the wall clock) →
+      byte-identical re-runs forever.
+- [x] **Eight CSVs in `data/generated/` (+ `manifest.json`), all inside the playbook's size targets:**
+      machines 24 · sensor_readings 11,136 (16 days; CNC-03 at 10-minute cadence) · maintenance_history 140 ·
+      spare_parts 32 · work_orders 97 · production_runs 336 · downtime_events 54 · maintenance_knowledge 49.
+- [x] **24 machines** across CNC/press/assembly/packaging/quality lines, each with twin `x, y, z` + status
+      (20 HEALTHY, WARNING = CNC-06, CRITICAL = CNC-03, MAINTENANCE = PRS-03, OFFLINE = PKG-04).
+- [x] **CNC-03 scripted degradation:** vibration 2.39 → 5.0 mm/s and bearing temp 62.0 → 70.7 °C
+      (first-24h → last-24h means) over a 5-day ramp; CRITICAL at snapshot; two prior `BRG-AX-17` bearing
+      repairs in history (Dec 2025, May 2026) as the agent's evidence base.
+- [x] **`BRG-AX-17`:** CNC-compatible axial spindle bearing, **stock 2 ≤ reorder point 3 (limited)**, cited by
+      knowledge chunks and by the PROPOSED demo work order `WO-0096` (`FACTORA_AGENT`, window Sun
+      2026-10-04 07:00 — lowest-impact slot).
+- [x] **Built-in validation on every run:** row-count windows, machine/part referential integrity +
+      part↔machine compatibility, work-order ↔ history 1:1 pairing, downtime ↔ production-runs reconciliation,
+      and the CNC-03 scenario asserts.
+- [x] **`data/README.md`:** every column of every file, which fields are synthetic, AI4I licence citation,
+      and the scripted-scenario table.
+
+**Nothing else is done beyond F2.** No ML model, no Snowflake objects, no product pages.
 
 ---
 
 ## In Progress
 
-- Nothing active. F2 is ready to start and needs **no** Snowflake credentials.
+- Nothing active. F3 is ready to start and needs **no** Snowflake credentials.
 
 ---
 
 ## Next 3 Tasks
 
-1. **F2.1 — AI4I download script.** `scripts/download_ai4i.py`: fetch the UCI AI4I 2020 CSV into `data/raw/`,
-   verify checksum/row count, and print a clear manual-download fallback if automated download is blocked.
-2. **F2.2 — Synthetic factory generator.** `scripts/generate_factory_data.py`: deterministic (fixed seeds) CSVs
-   for `machines`, `sensor_readings`, `maintenance_history`, `spare_parts`, `work_orders`, `production_runs`,
-   `downtime_events`, `maintenance_knowledge`; 24 machines across CNC/press/assembly/packaging/quality with
-   `x, y, z` + status; scripted CNC-03 degradation (rising vibration + temperature → bearing-failure risk);
-   `BRG-AX-17` compatible with CNC-03 and in limited stock; sizes kept hackathon-small.
-3. **F2.3 — Data documentation + validation.** `data/README.md` (every column, which fields are synthetic) and
-   a validation pass proving every CSV is non-empty, referentially consistent, and byte-identical on a second
-   run with the same seed. Then F3 (ML baseline) starts.
+1. **F3.1 — Training script.** `ml/train.py`: load `data/raw/ai4i2020.csv`, train the scikit-learn baseline
+   (machine failure vs not), report precision/recall/F1 + confusion matrix honestly (class imbalance!), save
+   artefacts to `ml/artifacts/` (gitignored).
+2. **F3.2 — Inference + demo adapter.** `ml/predict.py` (Command Ledger smoke test: `--machine CNC-03`) scoring
+   generated telemetry; the CNC-03 demo adapter documented and kept separate from the real evaluation.
+3. **F3.3 — `ml/MODEL_CARD.md`.** Metrics, limitations, imbalance treatment — must match what `train.py`
+   prints. Then C1/C2 (Snowflake tables + load) as soon as credentials arrive.
 
 ---
 
@@ -119,13 +140,15 @@ scripted degradation scenario, and `BRG-AX-17` is CNC-03's compatible bearing wi
 | Live API | ✅ pass | `uvicorn` + `curl /api/health` → `{"status":"ok", … "snowflake":{"status":"not_configured"}}` |
 | Live rendered shell | ✅ pass | Headless Chrome: `Backend reachable`, `recharts-surface`, one `<canvas>`, no error text |
 | Mockup extraction | ✅ pass | 10/10 images consumed, zero unused; byte counts + navy/light/state-colour sampling consistent with captions |
-| Dataset generator | ⏳ not started | F2 — must be deterministic and non-empty with the CNC-03 scenario present |
+| Dataset generator (F2) | ✅ pass | `python3.11 scripts/generate_factory_data.py --verify` → `DETERMINISM OK` (byte-identical re-run) + `CONSISTENCY OK` (all tables non-empty, cross-references + CNC-03 scenario verified); rows 24 / 11,136 / 140 / 32 / 97 / 336 / 54 / 49 |
+| AI4I download (F2) | ✅ pass | `python3.11 scripts/download_ai4i.py` + `--check` → `OK … 10,000 rows x 14 columns`, sha256 `dc6630cd…c8a8e` verified against the official UCI endpoint |
+| Scripts lint | ✅ pass | `backend/.venv/bin/ruff check scripts/` → `All checks passed!` (root `pyproject.toml`: 120-col budget for scripts/, DTZ + ISC004 ignored with documented reasons) |
 | ML model | ⏳ not started | F3 — honest metrics + `MODEL_CARD.md` required |
 | Snowflake objects | ⏳ blocked | C1/C2 — needs credentials (see *Blockers*) |
 | End-to-end demo | ⏳ not started | F10/F11 — reset → scenario → investigation → part → work order, twice |
 
-**Honest note:** there is still no data, no model, no Snowflake object and no product page. Everything green
-above is scaffold + documentation + design assets.
+**Honest note:** there is still no ML model, no Snowflake object and no product page. Data now exists (F2);
+everything else green above is scaffold + documentation + design assets.
 
 ---
 
@@ -193,11 +216,11 @@ Regeneration from the playbook PDF: `mockup/README.md` → *Regenerating these f
 
 | When | Command | Purpose |
 |------|---------|---------|
-| F2 | `python3 scripts/download_ai4i.py` | Fetch AI4I 2020 into `data/raw/` |
-| F2 | `python3 scripts/generate_factory_data.py` | Generate the synthetic factory CSVs into `data/generated/` |
-| F2 | `python3 scripts/generate_factory_data.py --verify` | Re-run determinism + consistency check |
-| F3 | `python3 ml/train.py` | Train the baseline, print precision/recall/F1 + confusion matrix |
-| F3 | `python3 ml/predict.py --machine CNC-03` | Inference smoke test on the demo machine |
+| F2 ✅ | `python3.11 scripts/download_ai4i.py` | Fetch AI4I 2020 into `data/raw/` (verified; `--check` re-validates offline) |
+| F2 ✅ | `python3.11 scripts/generate_factory_data.py` | Generate the synthetic factory CSVs into `data/generated/` |
+| F2 ✅ | `python3.11 scripts/generate_factory_data.py --verify` | Re-run determinism + consistency check (verified byte-identical) |
+| F3 | `python3.11 ml/train.py` | Train the baseline, print precision/recall/F1 + confusion matrix |
+| F3 | `python3.11 ml/predict.py --machine CNC-03` | Inference smoke test on the demo machine |
 
 ### §5 — Snowflake (C1/C2, awaiting credentials)
 
