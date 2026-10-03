@@ -13,4 +13,7 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 extend-select = ["DTZ", "ISC"]
 
 [tool.ruff.lint.per-file-ignores]
+# ml/ carries the same documented deviations as scripts/ (fixed naive plant-local
+# timestamps from the deterministic dataset; multi-line prose strings in cards/rules).
 "scripts/*" = ["DTZ", "ISC004"]
+"ml/*" = ["DTZ", "ISC004"]

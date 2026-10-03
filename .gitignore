@@ -51,6 +51,7 @@ snowflake/logs/
 # ─────────────────────────── ML artefacts ──────────────────────────
 # joblib/scikit-learn build output: reproducible from scripts, never committed.
 backend/artifacts/
+ml/artifacts/
 *.joblib
 *.pkl
 

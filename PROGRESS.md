@@ -1,6 +1,6 @@
 # PROGRESS.md — Factora Build State
 
-**Phase:** F2 — datasets + synthetic factory generator ✅ (F3 next); plan follows the build playbook
+**Phase:** F3 — baseline failure model ✅ (F4 next; C1/C2 credential-blocked); plan follows the playbook
 **Last updated:** 2026-10-03
 **Repo:** https://github.com/khushi-infinity/Factora
 **Hackathon:** Snowflake CoCo CLI Hackathon 2026 — GCC Edition
@@ -16,11 +16,11 @@ Control files in play: `PROJECT_SPEC.md`, `AGENTS.md`, `PROGRESS.md`, `README.md
 
 ## Current Goal
 
-**F3 — Baseline failure model.** Train the scikit-learn baseline on the AI4I 2020 dataset (`ml/train.py`),
-expose deterministic local inference (`ml/predict.py`), document honest metrics and limitations in
-`ml/MODEL_CARD.md`, and keep the CNC-03 demo adapter separate from the real evaluation. Exit criteria
-(AGENTS verification protocol): `ml/train.py` reproduces the metrics quoted in `MODEL_CARD.md`, the inference
-smoke test passes, and the demo adapter is documented and kept separate from the real evaluation.
+**F4 — API endpoints.** `/api/overview`, machines, telemetry, predictions, parts, work orders and OEE
+(+ tests). Exit criteria (AGENTS verification protocol): a TestClient test per route; the app keeps
+booting with no credentials (data served through the documented DEMO_MODE / CSV fallback until C1/C2
+land); every number comes from stored data or the F3 model artefact — never invented in a handler.
+C1/C2 (Snowflake schemas + load) stay blocked on credentials and run as soon as they arrive.
 
 ---
 
@@ -90,25 +90,55 @@ smoke test passes, and the demo adapter is documented and kept separate from the
 - [x] **`data/README.md`:** every column of every file, which fields are synthetic, AI4I licence citation,
       and the scripted-scenario table.
 
-**Nothing else is done beyond F2.** No ML model, no Snowflake objects, no product pages.
+### F3 — Baseline failure model ✅
+- [x] **`ml/train.py`:** scikit-learn RandomForest (300 trees, `class_weight=balanced_subsample`,
+      seed 42) on the AI4I dataset; 8 features (6 published inputs + `power_w`/`temp_diff_k` — the
+      published PWF/HDF rule variables); `UDI`/`Product ID`/the five mode flags excluded as target
+      leakage (built by explicit column selection, asserted in tests); stratified 80/20 split;
+      writes `ml/artifacts/{model.joblib,metrics.json}` (gitignored).
+- [x] **Honest metrics (AI4I holdout: 2,000 rows, 68 positives, threshold 0.5):** precision
+      **0.9375**, recall **0.6618**, F1 **0.7759**, ROC-AUC 0.9708, average precision 0.8586;
+      confusion **TN=1929 FP=3 FN=23 TP=45** — the 23 misses are reported and discussed, not tuned away.
+- [x] **`ml/predict.py`:** clean `score_features()` + `infer_failure_type()` mapping model output
+      + failure flags/context → human-readable type (published TWF/HDF/PWF/OSF rules; observed
+      flags labelled as ground truth; unexplained high probability honestly labelled “random /
+      undetermined” — never an invented cause). JSON in/out for the F4 API.
+- [x] **`ml/demo_adapter.py` (documented, separate layer):** CNC-03 last-24 h telemetry projected
+      into AI4I feature space (fixed table, out-of-domain warnings surfaced, no fabricated tool-wear
+      trend) → scored by the **real model** → noisy-OR with three knowledge-corpus evidence scores
+      (ISO 10816 vibration zone, 65/72 °C alarms, prior bearing repairs). Result:
+      **CNC-03 → demo risk 0.8639 HIGH, “Bearing wear (BRG-AX-17)”**; healthy control PKG-01 →
+      0.1667 LOW; every payload carries `is_demo_adapter: true` plus the real holdout numbers.
+- [x] **`ml/MODEL_CARD.md`:** dataset source + sha256, target, features and leakage exclusions,
+      imbalance handling, the metric table with an honest FN=23 discussion, six limitations, and
+      the adapter separation guarantees.
+- [x] **`backend/tests/test_ml.py` (8 tests):** training byte-determinism, metric↔MODEL_CARD
+      drift guard, evaluation purity (train.py never references the adapter or the generated
+      CSVs), failure-type rule/flag cases, CNC-03-high-risk + PKG-01-low-risk smoke tests,
+      adapter runs model-free with a stub scorer, and adapter baselines == generator baselines.
+
+**Nothing else is done beyond F3.** No Snowflake objects, no product pages.
 
 ---
 
 ## In Progress
 
-- Nothing active. F3 is ready to start and needs **no** Snowflake credentials.
+- Nothing active. F4 is ready to start and needs **no** Snowflake credentials (C1/C2 remain blocked —
+  the API builds and tests against the DEMO_MODE / CSV fallback until they land).
 
 ---
 
 ## Next 3 Tasks
 
-1. **F3.1 — Training script.** `ml/train.py`: load `data/raw/ai4i2020.csv`, train the scikit-learn baseline
-   (machine failure vs not), report precision/recall/F1 + confusion matrix honestly (class imbalance!), save
-   artefacts to `ml/artifacts/` (gitignored).
-2. **F3.2 — Inference + demo adapter.** `ml/predict.py` (Command Ledger smoke test: `--machine CNC-03`) scoring
-   generated telemetry; the CNC-03 demo adapter documented and kept separate from the real evaluation.
-3. **F3.3 — `ml/MODEL_CARD.md`.** Metrics, limitations, imbalance treatment — must match what `train.py`
-   prints. Then C1/C2 (Snowflake tables + load) as soon as credentials arrive.
+1. **F4.1 — Response models + data access.** Typed Pydantic response models for overview, machines,
+   telemetry, predictions, parts, work orders, OEE; all reads stay in `backend/app/db/` (only place the
+   connector is imported); credential-free fallback reads `data/generated/` through the documented
+   DEMO_MODE path so the API works before C1/C2.
+2. **F4.2 — Route modules + tests.** One TestClient test per route asserting shape, honesty (no invented
+   numbers) and the `not_configured`-safe behaviour; keep the F1 gates green.
+3. **F4.3 — CNC-03 demo endpoints.** Overview + machine detail serving the F3 prediction shape
+   (probability, failure type, evidence) and the adapter’s `is_demo_adapter` labelling; then C1/C2 with
+   credentials (Snowflake SQL scaffold can be drafted in parallel).
 
 ---
 
@@ -135,20 +165,23 @@ smoke test passes, and the demo adapter is documented and kept separate from the
 | Frontend unit tests | ✅ pass | `npm test` — **11/11 passed** (Vitest 5) |
 | Frontend production build | ✅ pass | `npm run build` — initial chunk 14.9 kB (5.22 kB gz), three.js in a lazy chunk |
 | Backend lint | ✅ pass | `.venv/bin/ruff check .` — `All checks passed!` |
-| Backend tests | ✅ pass | `.venv/bin/pytest` — **28 passed, 1 warning** (third-party Starlette `httpx2` advisory) |
+| Backend tests | ✅ pass | `.venv/bin/pytest` — **36 passed** (28 F1 + 8 ML), 1 warning (Starlette httpx2 advisory) |
+| ML baseline train | ✅ pass | `backend/.venv/bin/python ml/train.py` → precision 0.9375 / recall 0.6618 / F1 0.7759 / ROC-AUC 0.9708 / AP 0.8586; CM TN=1929 FP=3 FN=23 TP=45 |
+| ML inference + demo adapter | ✅ pass | `ml/predict.py --machine CNC-03` → demo risk **0.8639 HIGH**, type “Bearing wear (BRG-AX-17)”; PKG-01 → 0.1667 LOW; `--row` TWF case → “Tool wear failure” |
+| ML tests | ✅ pass | `.venv/bin/pytest tests/test_ml.py` → **8/8** (determinism, metric↔MODEL_CARD match, evaluation purity, adapter behaviour) |
 | Rename re-verification | ✅ pass | After the `FACTORA`/`CORE` + route-list change both gates were re-run: 11/11 frontend tests, build OK, 28/28 backend tests, ruff clean |
 | Live API | ✅ pass | `uvicorn` + `curl /api/health` → `{"status":"ok", … "snowflake":{"status":"not_configured"}}` |
 | Live rendered shell | ✅ pass | Headless Chrome: `Backend reachable`, `recharts-surface`, one `<canvas>`, no error text |
 | Mockup extraction | ✅ pass | 10/10 images consumed, zero unused; byte counts + navy/light/state-colour sampling consistent with captions |
 | Dataset generator (F2) | ✅ pass | `python3.11 scripts/generate_factory_data.py --verify` → `DETERMINISM OK` (byte-identical re-run) + `CONSISTENCY OK` (all tables non-empty, cross-references + CNC-03 scenario verified); rows 24 / 11,136 / 140 / 32 / 97 / 336 / 54 / 49 |
 | AI4I download (F2) | ✅ pass | `python3.11 scripts/download_ai4i.py` + `--check` → `OK … 10,000 rows x 14 columns`, sha256 `dc6630cd…c8a8e` verified against the official UCI endpoint |
-| Scripts lint | ✅ pass | `backend/.venv/bin/ruff check scripts/` → `All checks passed!` (root `pyproject.toml`: 120-col budget for scripts/, DTZ + ISC004 ignored with documented reasons) |
-| ML model | ⏳ not started | F3 — honest metrics + `MODEL_CARD.md` required |
+| Scripts + ml lint | ✅ pass | `backend/.venv/bin/ruff check . ../scripts ../ml` → `All checks passed!` (root `pyproject.toml`: 120-col budget, DTZ + ISC004 ignored with documented reasons) |
+| ML model | ✅ pass | F3 — honest holdout metrics + `MODEL_CARD.md`; adapter tested separately (rows above) |
 | Snowflake objects | ⏳ blocked | C1/C2 — needs credentials (see *Blockers*) |
 | End-to-end demo | ⏳ not started | F10/F11 — reset → scenario → investigation → part → work order, twice |
 
-**Honest note:** there is still no ML model, no Snowflake object and no product page. Data now exists (F2);
-everything else green above is scaffold + documentation + design assets.
+**Honest note:** there is still no Snowflake object and no product page. Data (F2) and an honest
+baseline model (F3) now exist; the UI still shows 0/10 pages.
 
 ---
 
@@ -219,8 +252,9 @@ Regeneration from the playbook PDF: `mockup/README.md` → *Regenerating these f
 | F2 ✅ | `python3.11 scripts/download_ai4i.py` | Fetch AI4I 2020 into `data/raw/` (verified; `--check` re-validates offline) |
 | F2 ✅ | `python3.11 scripts/generate_factory_data.py` | Generate the synthetic factory CSVs into `data/generated/` |
 | F2 ✅ | `python3.11 scripts/generate_factory_data.py --verify` | Re-run determinism + consistency check (verified byte-identical) |
-| F3 | `python3.11 ml/train.py` | Train the baseline, print precision/recall/F1 + confusion matrix |
-| F3 | `python3.11 ml/predict.py --machine CNC-03` | Inference smoke test on the demo machine |
+| F3 ✅ | `backend/.venv/bin/python ml/train.py` | Train the baseline, print precision/recall/F1 + confusion matrix (writes `ml/artifacts/`) |
+| F3 ✅ | `backend/.venv/bin/python ml/predict.py --machine CNC-03` | Demo-adapter inference smoke test (also `--row '{…}'` for AI4I rows) |
+| F3 ✅ | `cd backend && .venv/bin/pytest tests/test_ml.py` | 8 ML tests incl. the metric↔MODEL_CARD drift guard |
 
 ### §5 — Snowflake (C1/C2, awaiting credentials)
 
